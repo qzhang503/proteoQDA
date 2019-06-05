@@ -1,0 +1,13 @@
+Package: proteoQDA
+Title: Data employed in the vignette of the proteoQ package 
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Qiang",
+           family = "Zhang",
+           role = c("aut", "cre"),
+           email = "qzhang503@gmail.com")
+Description: This package stores the data employed in the vignette of the proteoQ package.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
