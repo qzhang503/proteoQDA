@@ -4,7 +4,7 @@
 \alias{copy_expt}
 \title{Copy \code{expt_smry.xlsx}}
 \usage{
-copy_expt(dat_dir)
+copy_expt(dat_dir, filename = "expt_smry.xlsx")
 }
 \description{
 \code{copy_expt} copies the \code{expt_smry.xlsx} to a target directory.
