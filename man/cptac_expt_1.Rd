@@ -2,10 +2,10 @@
 % Please edit documentation in R/globalCPTAC.R
 \name{cptac_expt_1}
 \alias{cptac_expt_1}
-\title{Copy \code{expt_smry.xlsx}}
+\title{Copy an \code{expt_smry...} file to \code{dat_dir}}
 \usage{
 cptac_expt_1(dat_dir)
 }
 \description{
-Copy \code{expt_smry.xlsx}
+Copy an \code{expt_smry...} file to \code{dat_dir}
 }

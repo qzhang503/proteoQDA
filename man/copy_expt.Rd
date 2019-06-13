@@ -2,10 +2,11 @@
 % Please edit documentation in R/globalCPTAC.R
 \name{copy_expt}
 \alias{copy_expt}
-\title{Copy \code{expt_smry.xlsx}}
+\title{Copy an \code{expt_smry...} file to \code{dat_dir}}
 \usage{
-copy_expt(dat_dir, filename = "expt_smry.xlsx")
+copy_expt(dat_dir, from = "expt_smry.xlsx", to = "expt_smry.xlsx")
 }
 \description{
-\code{copy_expt} copies the \code{expt_smry.xlsx} to a target directory.
+\code{copy_expt} copies a system file of \code{expt_smry...} to the target
+directory specified by \code{dat_dir}.
 }

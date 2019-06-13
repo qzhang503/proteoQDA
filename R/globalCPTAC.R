@@ -34,33 +34,41 @@ cptac_csv_2 <- function(dat_dir) {
 
 
 
-#' Copy \code{expt_smry.xlsx}
+#' Copy an \code{expt_smry...} file to \code{dat_dir}
 #'
-#' \code{copy_expt} copies the \code{expt_smry.xlsx} to a target directory.
+#' \code{copy_expt} copies a system file of \code{expt_smry...} to the target
+#' directory specified by \code{dat_dir}.
 #' @export
-copy_expt <- function(dat_dir, filename = "expt_smry.xlsx") {
+copy_expt <- function(dat_dir, from = "expt_smry.xlsx", to = "expt_smry.xlsx") {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
-  filepath <- system.file("extdata", filename, package = "proteoQDA")
-  # if (nchar(filepath) == 0) stop("Load `library(proteoQ)` first.")
+  filepath <- system.file("extdata", from, package = "proteoQDA")
   filepath <- gsub("/", "\\\\", filepath)
-  file.copy(from = filepath, to = file.path(dat_dir, "expt_smry.xlsx"))
+  file.copy(from = filepath, to = file.path(dat_dir, to))
 }
 
 
-#' Copy \code{expt_smry.xlsx}
+#' Copy an \code{expt_smry...} file to \code{dat_dir}
 #'
 #' @export
 cptac_expt_1 <- function(dat_dir) {
-  copy_expt(dat_dir, "expt_smry_cptac_gl.xlsx")
+  copy_expt(dat_dir, "expt_smry_cptac_gl.xlsx", "expt_smry.xlsx")
+}
+
+
+#' Copy an \code{expt_smry...} file to \code{dat_dir}
+#'
+#' @export
+cptac_expt_ref_w2 <- function(dat_dir) {
+  copy_expt(dat_dir, "expt_smry_ref_w2.xlsx", "expt_smry_ref_w2.xlsx")
 }
 
 
 #' Copy \code{expt_smry.xlsx}
 #'
 #' @export
-cptac_expt_2 <- function(dat_dir) {
-  copy_expt(dat_dir, "expt_smry_cptac_cmbn.xlsx")
+expt_smry_ref_w2_w16 <- function(dat_dir) {
+  copy_expt(dat_dir, "expt_smry_ref_w2_w16.xlsx", "expt_smry_ref_w2_w16.xlsx")
 }
 
 
