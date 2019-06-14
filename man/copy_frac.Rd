@@ -4,7 +4,7 @@
 \alias{copy_frac}
 \title{Copy \code{frac_smry.xlsx}}
 \usage{
-copy_frac(dat_dir, filename = "frac_smry.xlsx")
+copy_frac(dat_dir, from = "frac_smry.xlsx", to = "frac_smry.xlsx")
 }
 \description{
 \code{copy_frac} copies the \code{frac_smry.xlsx} to a target directory.

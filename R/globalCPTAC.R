@@ -59,6 +59,14 @@ cptac_expt_1 <- function(dat_dir) {
 #' Copy an \code{expt_smry...} file to \code{dat_dir}
 #'
 #' @export
+cptac_expt_2 <- function(dat_dir) {
+  copy_expt(dat_dir, "expt_smry_cptac_cmbn.xlsx", "expt_smry.xlsx")
+}
+
+
+#' Copy an \code{expt_smry...} file to \code{dat_dir}
+#'
+#' @export
 cptac_expt_ref_w2 <- function(dat_dir) {
   copy_expt(dat_dir, "expt_smry_ref_w2.xlsx", "expt_smry_ref_w2.xlsx")
 }
@@ -77,13 +85,12 @@ expt_smry_ref_w2_w16 <- function(dat_dir) {
 #'
 #' \code{copy_frac} copies the \code{frac_smry.xlsx} to a target directory.
 #' @export
-copy_frac <- function(dat_dir, filename = "frac_smry.xlsx") {
+copy_frac <- function(dat_dir, from = "frac_smry.xlsx", to = "frac_smry.xlsx") {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
-  filepath <- system.file("extdata", filename, package = "proteoQDA")
-  # if (nchar(filepath) == 0) stop("Load `library(proteoQ)` first.")
+  filepath <- system.file("extdata", from, package = "proteoQDA")
   filepath <- gsub("/", "\\\\", filepath)
-  file.copy(from = filepath, to = file.path(dat_dir, "frac_smry.xlsx"))
+  file.copy(from = filepath, to = file.path(dat_dir, to))
 }
 
 
@@ -91,7 +98,7 @@ copy_frac <- function(dat_dir, filename = "frac_smry.xlsx") {
 #'
 #' @export
 cptac_frac_1 <- function(dat_dir) {
-  copy_frac(dat_dir, "frac_smry_cptac_gl.xlsx")
+  copy_frac(dat_dir, "frac_smry_cptac_gl.xlsx", "frac_smry.xlsx")
 }
 
 
@@ -99,7 +106,7 @@ cptac_frac_1 <- function(dat_dir) {
 #'
 #' @export
 cptac_frac_2 <- function(dat_dir) {
-  copy_frac(dat_dir, "frac_smry_cptac_cmbn.xlsx")
+  copy_frac(dat_dir, "frac_smry_cptac_cmbn.xlsx", "frac_smry.xlsx")
 }
 
 
