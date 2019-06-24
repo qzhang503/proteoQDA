@@ -34,6 +34,37 @@ cptac_csv_2 <- function(dat_dir) {
 
 
 
+
+
+#' Copy protein tables
+#'
+#' \code{copy_prn_tbl} copies protein tables to a target directory.
+#' @export
+copy_prn_tbl <- function(dat_dir, from, to) {
+  dir.create(file.path(dat_dir, "Protein"), recursive = TRUE, showWarnings = FALSE)
+  dir.create(file.path(dat_dir, "Calls"), recursive = TRUE, showWarnings = FALSE)
+
+  data(list = from, package = "proteoQDA", envir = environment())
+
+  for (i in seq_along(from)) {
+    df <- get(from[i])
+    write.table(df, to[i], sep = "\t", col.names = TRUE, row.names = FALSE)
+  }
+}
+
+
+#' Copy \code{Protein.txt} and \code{Protein_impNA.txt}
+#'
+#' @export
+cptac_prn_1 <- function(dat_dir) {
+  copy_prn_tbl(dat_dir,
+               from = c("Protein_cptac_1", "Protein_impNA_cptac_1", "normPrn_pars_cptac_1"),
+               to = c(file.path(dat_dir, "Protein\\Protein.txt"),
+                      file.path(dat_dir, "Protein\\Protein_impNA.txt"),
+                      file.path(dat_dir, "Calls\\normPrn.txt")))
+}
+
+
 #' Copy an \code{expt_smry...} file to \code{dat_dir}
 #'
 #' \code{copy_expt} copies a system file of \code{expt_smry...} to the target
@@ -62,6 +93,15 @@ cptac_expt_1 <- function(dat_dir) {
 cptac_expt_2 <- function(dat_dir) {
   copy_expt(dat_dir, "expt_smry_cptac_cmbn.xlsx", "expt_smry.xlsx")
 }
+
+
+#' Copy an \code{expt_smry...} file to \code{dat_dir}
+#'
+#' @export
+cptac_expt_3 <- function(dat_dir) {
+  copy_expt(dat_dir, "expt_smry_raneff.xlsx", "expt_smry.xlsx")
+}
+
 
 
 #' Copy an \code{expt_smry...} file to \code{dat_dir}
@@ -107,6 +147,14 @@ cptac_frac_1 <- function(dat_dir) {
 #' @export
 cptac_frac_2 <- function(dat_dir) {
   copy_frac(dat_dir, "frac_smry_cptac_cmbn.xlsx", "frac_smry.xlsx")
+}
+
+
+#' Copy \code{frac_smry.xlsx}
+#'
+#' @export
+cptac_frac_3 <- function(dat_dir) {
+  copy_frac(dat_dir, "frac_smry_cptac_gl.xlsx", "frac_smry.xlsx")
 }
 
 
