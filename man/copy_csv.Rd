@@ -7,6 +7,6 @@
 copy_csv(dat_dir, filelist)
 }
 \description{
-\code{copy_dat} copies the Mascot outputs of \code{.csv} files to a target
+\code{copy_csv} copies the Mascot outputs of \code{.csv} files to a target
 directory.
 }

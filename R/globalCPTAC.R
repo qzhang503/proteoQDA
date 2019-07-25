@@ -1,6 +1,22 @@
+#' Make rda files
+foo <- function () {
+  dat_dir <- "c:\\The\\MQ\\Example"
+  filelist <- c("modificationSpecificPeptides_bi_1", "modificationSpecificPeptides_bi_2",
+                "modificationSpecificPeptides_jhu_1", "modificationSpecificPeptides_jhu2",
+                "modificationSpecificPeptides_pnnl_1", "modificationSpecificPeptides_pnnl_2")
+  # filelist <- c("peptides_bi_1", "peptides_bi_2", "peptides_jhu_1", "peptides_jhu_2", "peptides_pnnl_1", "peptides_pnnl_2")
+
+  purrr::walk(filelist, ~ {
+    assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), check.names = FALSE, header = TRUE, sep = "\t", comment.char = "#"))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+  })
+}
+
+
+
 #' Copy Mascot \code{.csv} files
 #'
-#' \code{copy_dat} copies the Mascot outputs of \code{.csv} files to a target
+#' \code{copy_csv} copies the Mascot outputs of \code{.csv} files to a target
 #' directory.
 #' @export
 copy_csv <- function(dat_dir, filelist) {
@@ -33,6 +49,43 @@ cptac_csv_2 <- function(dat_dir) {
 }
 
 
+#' Copy MaxQuant \code{.txt} files
+#'
+#' \code{copy_mq_txt} copies the MaxQuant outputs of \code{.txt} files to a
+#' target directory.
+#' @export
+copy_mq_txt <- function(dat_dir, filelist) {
+  dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
+
+  data(list = filelist, package = "proteoQDA", envir = environment())
+
+  for (i in seq_along(filelist)) {
+    df <- get(filelist[i])
+    write.table(df, file.path(dat_dir, paste0(filelist[i], ".txt")), sep = "\t",
+                col.names = TRUE, row.names = FALSE)
+  }
+}
+
+
+#' Copy MaxQuant \code{.txt} files
+#'
+#' @export
+cptac_mq_pep_1 <- function(dat_dir) {
+  copy_mq_txt(dat_dir,
+              filelist = c("peptides_bi_1", "peptides_bi_2", "peptides_jhu_1",
+                           "peptides_jhu_2", "peptides_pnnl_1", "peptides_pnnl_2"))
+}
+
+
+#' Copy MaxQuant \code{.txt} files
+#'
+#' @export
+cptac_mq_pep_2 <- function(dat_dir) {
+  copy_mq_txt(dat_dir,
+              filelist <- c("modificationSpecificPeptides_bi_1", "modificationSpecificPeptides_bi_2",
+                            "modificationSpecificPeptides_jhu_1", "modificationSpecificPeptides_jhu2",
+                            "modificationSpecificPeptides_pnnl_1", "modificationSpecificPeptides_pnnl_2"))
+}
 
 
 
@@ -103,6 +156,12 @@ cptac_expt_3 <- function(dat_dir) {
 }
 
 
+#' Copy an \code{expt_smry...} file to \code{dat_dir}
+#'
+#' @export
+cptac_mq_expt_1 <- function(dat_dir) {
+  copy_expt(dat_dir, "expt_smry_cptac_gl_mq.xlsx", "expt_smry.xlsx")
+}
 
 #' Copy an \code{expt_smry...} file to \code{dat_dir}
 #'
@@ -158,4 +217,33 @@ cptac_frac_3 <- function(dat_dir) {
 }
 
 
+
+#' Copy \code{fasta} files
+#'
+#' \code{copy_fasta} copies \code{fasta} files to a target directory.
+#' @export
+copy_fasta <- function(fasta_dir = "~\\proteoQ\\dbs\\refseq",
+                       from = "refseq_hs_2013_07.fasta", to = "refseq_hs_2013_07.fasta") {
+  dir.create(file.path(fasta_dir), recursive = TRUE, showWarnings = FALSE)
+
+  filepath <- system.file("extdata", from, package = "proteoQDA")
+  filepath <- gsub("/", "\\\\", filepath)
+  file.copy(from = filepath, to = file.path(fasta_dir, to))
+}
+
+
+#' Copy \code{refseq_hs_2013_07.fasta}
+#'
+#' @export
+copy_refseq_hs <- function(fasta_dir = "~\\proteoQ\\dbs\\refseq") {
+  copy_fasta(fasta_dir, "refseq_hs_2013_07.fasta", "refseq_hs_2013_07.fasta")
+}
+
+
+#' Copy \code{refseq_mm_2013_07.fasta}
+#'
+#' @export
+copy_refseq_mm <- function(fasta_dir = "~\\proteoQ\\dbs\\refseq") {
+  copy_fasta(fasta_dir, "refseq_mm_2013_07.fasta", "refseq_mm_2013_07.fasta")
+}
 
