@@ -70,7 +70,7 @@ copy_mq_txt <- function(dat_dir, filelist) {
 #' Copy MaxQuant \code{.txt} files
 #'
 #' @export
-cptac_mq_pep_1 <- function(dat_dir) {
+cptac_mqpep_txt <- function(dat_dir) {
   copy_mq_txt(dat_dir,
               filelist = c("peptides_bi_1", "peptides_bi_2", "peptides_jhu_1",
                            "peptides_jhu_2", "peptides_pnnl_1", "peptides_pnnl_2"))
@@ -80,13 +80,30 @@ cptac_mq_pep_1 <- function(dat_dir) {
 #' Copy MaxQuant \code{.txt} files
 #'
 #' @export
-cptac_mq_pep_2 <- function(dat_dir) {
+cptac_mqpep_txt2 <- function(dat_dir) {
   copy_mq_txt(dat_dir,
               filelist <- c("modificationSpecificPeptides_bi_1", "modificationSpecificPeptides_bi_2",
                             "modificationSpecificPeptides_jhu_1", "modificationSpecificPeptides_jhu2",
                             "modificationSpecificPeptides_pnnl_1", "modificationSpecificPeptides_pnnl_2"))
 }
 
+
+
+
+#' Copy an \code{expt_smry...} file to \code{dat_dir}
+#'
+#' @export
+cptac_mqpep_expt <- function(dat_dir) {
+  copy_expt(dat_dir, "expt_smry_cptac_gl_mq.xlsx", "expt_smry.xlsx")
+}
+
+
+#' Copy \code{frac_smry.xlsx}
+#'
+#' @export
+cptac_mqpep_frac <- function(dat_dir) {
+  copy_frac(dat_dir, "frac_smry_cptac_gl.xlsx", "frac_smry.xlsx")
+}
 
 
 #' Copy protein tables
@@ -246,4 +263,7 @@ copy_refseq_hs <- function(fasta_dir = "~\\proteoQ\\dbs\\refseq") {
 copy_refseq_mm <- function(fasta_dir = "~\\proteoQ\\dbs\\refseq") {
   copy_fasta(fasta_dir, "refseq_mm_2013_07.fasta", "refseq_mm_2013_07.fasta")
 }
+
+
+
 
