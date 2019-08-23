@@ -4,7 +4,7 @@
 \alias{copy_refseq_mm}
 \title{Copy \code{refseq_mm_2013_07.fasta}}
 \usage{
-copy_refseq_mm(fasta_dir = "~\\\\proteoQ\\\\dbs\\\\refseq")
+copy_refseq_mm(fasta_dir = "~\\\\proteoQ\\\\dbs\\\\fasta\\\\refseq")
 }
 \description{
 Copy \code{refseq_mm_2013_07.fasta}

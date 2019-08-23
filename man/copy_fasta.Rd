@@ -4,7 +4,7 @@
 \alias{copy_fasta}
 \title{Copy \code{fasta} files}
 \usage{
-copy_fasta(fasta_dir = "~\\\\proteoQ\\\\dbs\\\\refseq",
+copy_fasta(fasta_dir = "~\\\\proteoQ\\\\dbs\\\\fasta\\\\refseq",
   from = "refseq_hs_2013_07.fasta", to = "refseq_hs_2013_07.fasta")
 }
 \description{

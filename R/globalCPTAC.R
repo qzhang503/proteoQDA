@@ -1,5 +1,17 @@
 #' Make rda files
 foo <- function () {
+  dat_dir <- "c:\\The\\Mascot\\Example"
+  filelist <- c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597")
+
+  purrr::walk(filelist, ~ {
+    assign(.x, readLines(file.path(dat_dir, paste0(.x, ".csv"))))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+  })
+}
+
+
+#' Make rda files
+foo2 <- function () {
   dat_dir <- "c:\\The\\MQ\\Example"
   filelist <- c("modificationSpecificPeptides_bi_1", "modificationSpecificPeptides_bi_2",
                 "modificationSpecificPeptides_jhu_1", "modificationSpecificPeptides_jhu2",
@@ -11,7 +23,6 @@ foo <- function () {
     save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
   })
 }
-
 
 
 #' Copy Mascot \code{.csv} files
@@ -37,7 +48,8 @@ copy_csv <- function(dat_dir, filelist) {
 #'
 #' @export
 cptac_csv_1 <- function(dat_dir) {
-	copy_csv(dat_dir, filelist = c("F003481", "F003485", "F003486", "F003487", "F003488", "F003510"))
+	# copy_csv(dat_dir, filelist = c("F003481", "F003485", "F003486", "F003487", "F003488", "F003510"))
+	copy_csv(dat_dir, filelist = c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597"))
 }
 
 
@@ -239,7 +251,7 @@ cptac_frac_3 <- function(dat_dir) {
 #'
 #' \code{copy_fasta} copies \code{fasta} files to a target directory.
 #' @export
-copy_fasta <- function(fasta_dir = "~\\proteoQ\\dbs\\refseq",
+copy_fasta <- function(fasta_dir = "~\\proteoQ\\dbs\\fasta\\refseq",
                        from = "refseq_hs_2013_07.fasta", to = "refseq_hs_2013_07.fasta") {
   dir.create(file.path(fasta_dir), recursive = TRUE, showWarnings = FALSE)
 
@@ -252,7 +264,7 @@ copy_fasta <- function(fasta_dir = "~\\proteoQ\\dbs\\refseq",
 #' Copy \code{refseq_hs_2013_07.fasta}
 #'
 #' @export
-copy_refseq_hs <- function(fasta_dir = "~\\proteoQ\\dbs\\refseq") {
+copy_refseq_hs <- function(fasta_dir = "~\\proteoQ\\dbs\\fasta\\refseq") {
   copy_fasta(fasta_dir, "refseq_hs_2013_07.fasta", "refseq_hs_2013_07.fasta")
 }
 
@@ -260,7 +272,7 @@ copy_refseq_hs <- function(fasta_dir = "~\\proteoQ\\dbs\\refseq") {
 #' Copy \code{refseq_mm_2013_07.fasta}
 #'
 #' @export
-copy_refseq_mm <- function(fasta_dir = "~\\proteoQ\\dbs\\refseq") {
+copy_refseq_mm <- function(fasta_dir = "~\\proteoQ\\dbs\\fasta\\refseq") {
   copy_fasta(fasta_dir, "refseq_mm_2013_07.fasta", "refseq_mm_2013_07.fasta")
 }
 
