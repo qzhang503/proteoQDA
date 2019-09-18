@@ -1,7 +1,10 @@
 #' Make rda files
 foo <- function () {
-  dat_dir <- "c:\\The\\Mascot\\Example"
-  filelist <- c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597")
+  # dat_dir <- "c:\\The\\Mascot\\Example"
+  # filelist <- c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597")
+
+  dat_dir <- "c:\\The\\Phosphopeptide\\Example"
+  filelist <- c("F003607", "F003608", "F003609", "F003610", "F003611", "F003612")
 
   purrr::walk(filelist, ~ {
     assign(.x, readLines(file.path(dat_dir, paste0(.x, ".csv"))))
