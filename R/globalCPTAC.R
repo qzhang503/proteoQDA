@@ -28,6 +28,25 @@ foo2 <- function () {
 }
 
 
+#' Make rda files
+foo3 <- function () {
+  dat_dir <- "c:\\The\\Mascot\\Example"
+  fn <- c("Protein.txt")
+  assign("Protein_cptac_1", read.csv(file.path(dat_dir, "Protein", fn),
+                      check.names = FALSE, header = TRUE, sep = "\t", comment.char = "#"))
+  save(Protein_cptac_1, file = file.path(dat_dir, "Protein\\Protein_cptac_1.rda"))
+
+  fn <- c("Protein_impNA.txt")
+  assign("Protein_impNA_cptac_1", read.csv(file.path(dat_dir, "Protein", fn), check.names = FALSE,
+                                     header = TRUE, sep = "\t", comment.char = "#"))
+  save(Protein_impNA_cptac_1, file = file.path(dat_dir, "Protein\\Protein_impNA_cptac_1.rda"))
+
+  fn <- c("normPrn.txt")
+  assign("normPrn_pars_cptac_1", read.csv(file.path(dat_dir, "Calls", fn), check.names = FALSE,
+                                           header = TRUE, sep = "\t", comment.char = "#"))
+  save(normPrn_pars_cptac_1, file = file.path(dat_dir, "Protein\\normPrn_pars_cptac_1.rda"))
+}
+
 #' Copy Mascot \code{.csv} files
 #'
 #' \code{copy_csv} copies the Mascot outputs of \code{.csv} files to a target
@@ -60,7 +79,7 @@ cptac_csv_1 <- function(dat_dir) {
 #'
 #' @export
 cptac_csv_2 <- function(dat_dir) {
-  copy_csv(dat_dir, filelist = c("F003529", "F003530", "F003531", "F003532", "F003533", "F003534"))
+  copy_csv(dat_dir, filelist = c("F003607", "F003608", "F003609", "F003610", "F003611", "F003612"))
 }
 
 
