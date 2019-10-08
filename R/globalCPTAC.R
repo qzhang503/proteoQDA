@@ -28,6 +28,18 @@ foo2 <- function () {
 }
 
 
+#' Make Spectrum Mill rda files
+foo_sm <- function () {
+  dat_dir <- "c:\\The\\SM\\Example"
+  filelist <- c("PSMexport_bi1", "PSMexport_bi2", "PSMexport_jhu1", "PSMexport_jhu2", "PSMexport_pnnl1", "PSMexport_pnnl2")
+
+  purrr::walk(filelist, ~ {
+    assign(.x, readr::read_delim(file.path(dat_dir, paste0(.x, ".ssv")), delim = ";"))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+  })
+}
+
+
 #' Make rda files
 foo3 <- function () {
   dat_dir <- "c:\\The\\Mascot\\Example"
@@ -46,6 +58,7 @@ foo3 <- function () {
                                            header = TRUE, sep = "\t", comment.char = "#"))
   save(normPrn_pars_cptac_1, file = file.path(dat_dir, "Protein\\normPrn_pars_cptac_1.rda"))
 }
+
 
 #' Copy Mascot \code{.csv} files
 #'
@@ -99,6 +112,34 @@ copy_mq_txt <- function(dat_dir, filelist) {
                 col.names = TRUE, row.names = FALSE)
   }
 }
+
+
+#' Copy Spectrum Mill \code{.ssv} files
+#'
+#' \code{copy_sm_ssv} copies the Spectrum Mill outputs of \code{.ssv} files to a
+#' target directory.
+#' @export
+copy_sm_ssv <- function(dat_dir, filelist) {
+  dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
+
+  data(list = filelist, package = "proteoQDA", envir = environment())
+
+  for (i in seq_along(filelist)) {
+    df <- get(filelist[i])
+    write.table(df, file.path(dat_dir, paste0(filelist[i], ".ssv")), sep = "\t",
+                col.names = TRUE, row.names = FALSE)
+  }
+}
+
+
+#' Copy Spectrum Mill \code{.ssv} files
+#'
+#' @export
+cptac_sm_ssv <- function(dat_dir) {
+  copy_sm_ssv(dat_dir, filelist = c("PSMexport_bi1", "PSMexport_bi2", "PSMexport_jhu1",
+                                    "PSMexport_jhu2", "PSMexport_pnnl1", "PSMexport_pnnl2"))
+}
+
 
 
 #' Copy MaxQuant \code{.txt} files
