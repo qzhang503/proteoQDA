@@ -10,4 +10,6 @@ Description: This package stores the data employed in the vignette of the proteo
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports: 
+    readr
 RoxygenNote: 6.1.1
