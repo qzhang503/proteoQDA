@@ -126,7 +126,7 @@ copy_sm_ssv <- function(dat_dir, filelist) {
 
   for (i in seq_along(filelist)) {
     df <- get(filelist[i])
-    write.table(df, file.path(dat_dir, paste0(filelist[i], ".ssv")), sep = "\t",
+    write.table(df, file.path(dat_dir, paste0(filelist[i], ".ssv")), sep = ";",
                 col.names = TRUE, row.names = FALSE)
   }
 }
