@@ -1,70 +1,284 @@
-#' Make rda files
-foo <- function () {
-  # dat_dir <- "c:\\The\\Mascot\\Example"
+#' Mascot subset rda files
+foo_mascot_psmidx <- function () {
+  library(magrittr)
+  dat_dir <- "~\\proteoQ\\examples"
+
+  ## global
+  # filelist <- c("F003590_hdr_rm.csv", "F003591_hdr_rm.csv", "F003593_hdr_rm.csv",
+  #               "F003594_hdr_rm.csv", "F003595_hdr_rm.csv", "F003597_hdr_rm.csv")
+  # filelist_hdr <- c("F003590_header.txt")
+
+  ## phospho
+  filelist <- c("F003598_hdr_rm.csv", "F003602_hdr_rm.csv", "F003603_hdr_rm.csv",
+              "F003604_hdr_rm.csv", "F003605_hdr_rm.csv", "F003606_hdr_rm.csv")
+  filelist_hdr <- c("F003598_header.txt")
+
+  ## combined phospho and global
+  # filelist <- c("F003607_hdr_rm.csv", "F003608_hdr_rm.csv", "F003609_hdr_rm.csv",
+  #               "F003610_hdr_rm.csv", "F003611_hdr_rm.csv", "F003612_hdr_rm.csv")
+  # filelist_hdr <- c("F003607_header.txt")
+
+  # data thinning
+  purrr::walk(filelist, ~ {
+    assign(.x, read.csv(file.path(dat_dir, .x), check.names = FALSE, header = TRUE, comment.char = "#"))
+
+    df <- get(.x)
+    r_start <- which(names(df) == "pep_scan_title") + 1
+    int_end <- ncol(df)
+
+    TMT_plex <- 10
+    col_int <- c("I126", "I127N", "I127C", "I128N", "I128C", "I129N", "I129C", "I130N", "I130C", "I131")
+    df <- df[, ((TMT_plex - 1) * 2 + r_start) : int_end]
+    df <- df[, seq(2, 2*TMT_plex, 2)]
+    colnames(df) <- col_int
+
+    df[] <- lapply(df, function(.x) {ifelse(.x == -1, NA, .x)})
+    df$is_complete <- complete.cases(df)
+    df$psm_idx <- 1:nrow(df)
+
+    n_row <- floor(nrow(df)/10)
+    df_comp <- df[df$is_complete, ]
+    set.seed(123)
+    rows <- sample(nrow(df_comp), n_row)
+    comp_idx <- df_comp[rows, "psm_idx"]
+
+    n_row2 <- floor(n_row/10)
+    df_incomp <- df[!df$is_complete, ]
+    set.seed(1234)
+    rows2 <- sample(nrow(df_incomp), n_row2)
+    incomp_idx <- df_incomp[rows2, "psm_idx"]
+
+    filename <- file.path(dat_dir, gsub("_hdr_rm", "_idx", .x))
+    both_idx <- c(comp_idx, incomp_idx)
+    both_idx <- sort(both_idx)
+    both_idx <- data.frame(idx = both_idx)
+
+    write.table(both_idx, filename, sep = ',', na = "", col.names = TRUE, row.names = FALSE, quote = FALSE)
+  })
+
+}
+
+#' Mascot subset rda files
+foo_mascot_subset_tenperent_na <- function () {
+  library(magrittr)
+  dat_dir <- "~\\proteoQ\\examples"
+
+  ## global
   # filelist <- c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597")
 
-  dat_dir <- "c:\\The\\Phosphopeptide\\Example"
-  filelist <- c("F003607", "F003608", "F003609", "F003610", "F003611", "F003612")
+  ## phospho
+  filelist <- c("F003598", "F003602", "F003603", "F003604", "F003605", "F003606")
+
+  ## combined phospho and global
+  # filelist <- c("F003607", "F003608", "F003609", "F003610", "F003611", "F003612")
+
+  purrr::walk(filelist, ~ {
+    assign(.x, readLines(file.path(dat_dir, paste0(.x, ".csv"))))
+
+    data <- get(.x)
+    eoh <- grep("prot_hit_num", data)
+    hdr <- data[1:eoh]
+
+    rows <- read.csv(file.path(dat_dir, paste0(.x, "_idx.csv")), check.names = FALSE, header = TRUE,
+                     comment.char = "#")
+    rows <- rows + length(hdr)
+    rows <- unlist(rows)
+
+    set.seed(123)
+    len <- length(data)
+    data_sub <- data[rows]
+    data_sub <- append(hdr, data_sub)
+    assign(.x, data_sub)
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+  })
+  # load(file.path(dat_dir, paste0(.x, ".rda")))
+}
+
+#' Mascot subset rda files
+foo_mascot_subset <- function () {
+  library(magrittr)
+  dat_dir <- "~\\proteoQ\\examples"
+
+  ## global
+  # filelist <- c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597")
+
+  ## phospho
+  filelist <- c("F003598", "F003602", "F003603", "F003604", "F003605", "F003606")
+
+  ## combined phospho and global
+  # filelist <- c("F003607", "F003608", "F003609", "F003610", "F003611", "F003612")
+
+  purrr::walk(filelist, ~ {
+    assign(.x, readLines(file.path(dat_dir, paste0(.x, ".csv"))))
+
+    data <- get(.x)
+    eoh <- grep("prot_hit_num", data)
+    hdr <- data[1:eoh]
+
+    set.seed(123)
+    len <- length(data)
+    data_sub <- data[sample((eoh+1):len, len/10)]
+    data_sub <- append(hdr, data_sub)
+    assign(.x, data_sub)
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+  })
+  # load(file.path(dat_dir, paste0(.x, ".rda")))
+}
+
+
+#' MaxQuant subset rda files
+foo_mq_subset <- function () {
+  library(magrittr)
+  dat_dir <- "~\\proteoQ\\examples"
+
+  ## global
+  filelist <- c("msms_bi_1", "msms_jhu_1", "msms_pnnl_1", "msms_bi_2", "msms_jhu_2", "msms_pnnl_2")
+
+  ## phospho
+  # filelist <- c("msms_bi_p1", "msms_jhu_p1", "msms_pnnl_p1", "msms_bi_p2", "msms_jhu_p2", "msms_pnnl_p2")
+
+  # data thinning
+  purrr::walk(filelist, ~ {
+    assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), sep = "\t", check.names = FALSE, header = TRUE, comment.char = "#"))
+
+    df <- get(.x)
+    df <- df[, grepl("Reporter intensity corrected", names(df))]
+    df$is_complete <- complete.cases(df)
+    df$psm_idx <- 1:nrow(df)
+
+    df_comp <- df[df$is_complete, ]
+    set.seed(123)
+    rows <- sample(nrow(df_comp), floor(nrow(df_comp)/10))
+    comp_idx <- df_comp[rows, "psm_idx"] %>% unclass() %>% unlist()
+
+
+    df_incomp <- df[!df$is_complete, ]
+    set.seed(1234)
+    rows2 <- sample(nrow(df_incomp), floor(nrow(df_incomp)/10))
+    incomp_idx <- df_incomp[rows2, "psm_idx"] %>% unclass() %>% unlist()
+
+    df <- get(.x)
+    df <- df[c(comp_idx, incomp_idx), ]
+    df <- df[sample(nrow(df)), ]
+
+    ## poor compression
+    # assign(.x, df)
+    # save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+    # load(file.path(dat_dir, paste0(.x, ".rda")))
+
+    write.table(df, file.path(dat_dir, paste0(.x, ".txt")), sep = "\t", col.names = TRUE, row.names = FALSE)
+  })
+
+  ## rda
+  # better compression
+  purrr::walk(filelist, ~ {
+   assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), check.names = FALSE, header = TRUE, sep = "\t", comment.char = "#"))
+   save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+  })
+}
+
+
+#' SpectrumMill subset rda files
+foo_sm_subset <- function () {
+  library(magrittr)
+
+  dat_dir <- "~\\proteoQ\\examples"
+
+  ## global
+  filelist <- c("PSMexport_bi_1", "PSMexport_bi_2", "PSMexport_jhu_1", "PSMexport_jhu_2", "PSMexport_pnnl_1", "PSMexport_pnnl_2")
+
+  ## phospho
+  # filelist <- c("PSMexport_bi_p1", "PSMexport_bi_p2", "PSMexport_jhu_p1", "PSMexport_jhu_p2", "PSMexport_pnnl_p1", "PSMexport_pnnl_p2")
+
+  # data thinning
+  purrr::walk(filelist, ~ {
+    assign(.x, readr::read_delim(file.path(dat_dir, paste0(.x, ".ssv")), delim = ";"))
+
+    df <- get(.x)
+    df <- df[, grepl("^TMT_[0-9]{3}[NC]{0,1}$", names(df))]
+    df$is_complete <- complete.cases(df)
+    df$psm_idx <- 1:nrow(df)
+
+    df_comp <- df[df$is_complete, ]
+    set.seed(123)
+    rows <- sample(nrow(df_comp), floor(nrow(df_comp)/10))
+    comp_idx <- df_comp[rows, "psm_idx"] %>% unclass() %>% unlist()
+
+
+    df_incomp <- df[!df$is_complete, ]
+    set.seed(1234)
+    rows2 <- sample(nrow(df_incomp), floor(nrow(df_incomp)/10))
+    incomp_idx <- df_incomp[rows2, "psm_idx"] %>% unclass() %>% unlist()
+
+    df <- get(.x)
+    df <- df[c(comp_idx, incomp_idx), ]
+    df <- df[sample(nrow(df)), ]
+
+    assign(.x, df)
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+    # load(file.path(dat_dir, paste0(.x, ".rda")))
+    # write.table(df, file.path(dat_dir, paste0(.x, ".ssv")), sep = ";", col.names = TRUE, row.names = FALSE)
+  })
+
+  ## rda
+  # purrr::walk(filelist, ~ {
+  #  assign(.x, readr::read_delim(file.path(dat_dir, paste0(.x, ".ssv")), delim = ";"))
+  #  save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+  # })
+}
+
+#' Mascot subset rda files
+foo_mascot_fullset <- function () {
+  library(magrittr)
+  dat_dir <- "~\\proteoQ\\examples"
+
+  ## global
+  # filelist <- c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597")
+
+  ## phospho
+  filelist <- c("F003598", "F003602", "F003603", "F003604", "F003605", "F003606")
+
+  ## combined phospho and global
+  # filelist <- c("F003607", "F003608", "F003609", "F003610", "F003611", "F003612")
 
   purrr::walk(filelist, ~ {
     assign(.x, readLines(file.path(dat_dir, paste0(.x, ".csv"))))
     save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
   })
+
+  # load(file.path(dat_dir, paste0(.x, ".rda")))
 }
 
 
-#' Make rda files
-foo2 <- function () {
-  dat_dir <- "c:\\The\\MQ\\Example"
-  filelist <- c("modificationSpecificPeptides_bi_1", "modificationSpecificPeptides_bi_2",
-                "modificationSpecificPeptides_jhu_1", "modificationSpecificPeptides_jhu2",
-                "modificationSpecificPeptides_pnnl_1", "modificationSpecificPeptides_pnnl_2")
-  # filelist <- c("peptides_bi_1", "peptides_bi_2", "peptides_jhu_1", "peptides_jhu_2", "peptides_pnnl_1", "peptides_pnnl_2")
 
-  purrr::walk(filelist, ~ {
-    assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), check.names = FALSE, header = TRUE, sep = "\t", comment.char = "#"))
-    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
-  })
+
+
+
+#' Copy Mascot global \code{.csv}
+#'
+#' @export
+copy_global_mascot <- function(dat_dir) {
+	copy_csv(dat_dir, filelist = c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597"))
 }
 
-
-#' Make Spectrum Mill rda files
-foo_sm <- function () {
-  dat_dir <- "c:\\The\\SM\\Example"
-  filelist <- c("PSMexport_bi1", "PSMexport_bi2", "PSMexport_jhu1", "PSMexport_jhu2", "PSMexport_pnnl1", "PSMexport_pnnl2")
-
-  purrr::walk(filelist, ~ {
-    assign(.x, readr::read_delim(file.path(dat_dir, paste0(.x, ".ssv")), delim = ";"))
-    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
-  })
+#' Copy Mascot phospho \code{.csv}
+#'
+#' @export
+copy_phospho_mascot <- function(dat_dir) {
+  copy_csv(dat_dir, filelist = c("F003598", "F003602", "F003603", "F003604", "F003605", "F003606"))
 }
 
-
-#' Make rda files
-foo3 <- function () {
-  dat_dir <- "c:\\The\\Mascot\\Example"
-  fn <- c("Protein.txt")
-  assign("Protein_cptac_1", read.csv(file.path(dat_dir, "Protein", fn),
-                      check.names = FALSE, header = TRUE, sep = "\t", comment.char = "#"))
-  save(Protein_cptac_1, file = file.path(dat_dir, "Protein\\Protein_cptac_1.rda"))
-
-  fn <- c("Protein_impNA.txt")
-  assign("Protein_impNA_cptac_1", read.csv(file.path(dat_dir, "Protein", fn), check.names = FALSE,
-                                     header = TRUE, sep = "\t", comment.char = "#"))
-  save(Protein_impNA_cptac_1, file = file.path(dat_dir, "Protein\\Protein_impNA_cptac_1.rda"))
-
-  fn <- c("normPrn.txt")
-  assign("normPrn_pars_cptac_1", read.csv(file.path(dat_dir, "Calls", fn), check.names = FALSE,
-                                           header = TRUE, sep = "\t", comment.char = "#"))
-  save(normPrn_pars_cptac_1, file = file.path(dat_dir, "Protein\\normPrn_pars_cptac_1.rda"))
+#' Copy Mascot phospho and global \code{.csv}
+#'
+#' @export
+copy_cmbn_phospho_mascot <- function(dat_dir) {
+  copy_csv(dat_dir, filelist = c("F003607", "F003608", "F003609", "F003610", "F003611", "F003612"))
 }
-
 
 #' Copy Mascot \code{.csv} files
 #'
 #' \code{copy_csv} copies the Mascot outputs of \code{.csv} files to a target
 #' directory.
-#' @export
 copy_csv <- function(dat_dir, filelist) {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
@@ -73,35 +287,34 @@ copy_csv <- function(dat_dir, filelist) {
   for (i in seq_along(filelist)) {
     fileConn <- file(file.path(dat_dir, paste0(filelist[i], ".csv")))
     df <- get(filelist[i])
+
+    for (j in seq_along(df)) df[j] <- gsub("^\\s+", "", df[j])
+    # for (j in 1:grep("prot_hit_num", df)) df[j] <- gsub("^ ", "", df[j])
+
     writeLines(df, fileConn)
     close(fileConn)
   }
 }
 
-
-#' Copy Mascot \code{.csv} files
+#' Copy MaxQuant global \code{.txt}
 #'
 #' @export
-cptac_csv_1 <- function(dat_dir) {
-	# copy_csv(dat_dir, filelist = c("F003481", "F003485", "F003486", "F003487", "F003488", "F003510"))
-	copy_csv(dat_dir, filelist = c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597"))
+copy_global_maxquant <- function(dat_dir) {
+  copy_txt(dat_dir, filelist = c("msms_bi_1", "msms_jhu_1", "msms_pnnl_1", "msms_bi_2", "msms_jhu_2", "msms_pnnl_2"))
 }
 
-
-#' Copy Mascot \code{.csv} files
+#' Copy MaxQuant phospho \code{.txt}
 #'
 #' @export
-cptac_csv_2 <- function(dat_dir) {
-  copy_csv(dat_dir, filelist = c("F003607", "F003608", "F003609", "F003610", "F003611", "F003612"))
+copy_phospho_maxquant <- function(dat_dir) {
+  copy_txt(dat_dir, filelist = c("msms_bi_p1", "msms_jhu_p1", "msms_pnnl_p1", "msms_bi_p2", "msms_jhu_p2", "msms_pnnl_p2"))
 }
-
 
 #' Copy MaxQuant \code{.txt} files
 #'
-#' \code{copy_mq_txt} copies the MaxQuant outputs of \code{.txt} files to a
-#' target directory.
-#' @export
-copy_mq_txt <- function(dat_dir, filelist) {
+#' \code{copy_txt} copies the MaxQuant \code{msms.txt} files to a target
+#' directory.
+copy_txt <- function(dat_dir, filelist) {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
   data(list = filelist, package = "proteoQDA", envir = environment())
@@ -114,12 +327,27 @@ copy_mq_txt <- function(dat_dir, filelist) {
 }
 
 
+#' Copy Spectrum Mill global \code{.ssv}
+#'
+#' @export
+copy_global_sm <- function(dat_dir) {
+  copy_ssv(dat_dir, filelist = c("PSMexport_bi_1", "PSMexport_bi_2", "PSMexport_jhu_1",
+                                 "PSMexport_jhu_2", "PSMexport_pnnl_1", "PSMexport_pnnl_2"))
+}
+
+#' Copy Spectrum Mill phospho \code{.ssv}
+#'
+#' @export
+copy_phospho_sm <- function(dat_dir) {
+  copy_ssv(dat_dir, filelist = c("PSMexport_bi_p1", "PSMexport_bi_p2", "PSMexport_jhu_p1",
+                                 "PSMexport_jhu_p2", "PSMexport_pnnl_p1", "PSMexport_pnnl_p2"))
+}
+
 #' Copy Spectrum Mill \code{.ssv} files
 #'
-#' \code{copy_sm_ssv} copies the Spectrum Mill outputs of \code{.ssv} files to a
+#' \code{copy_ssv} copies the Spectrum Mill outputs of \code{.ssv} files to a
 #' target directory.
-#' @export
-copy_sm_ssv <- function(dat_dir, filelist) {
+copy_ssv <- function(dat_dir, filelist) {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
   data(list = filelist, package = "proteoQDA", envir = environment())
@@ -132,89 +360,18 @@ copy_sm_ssv <- function(dat_dir, filelist) {
 }
 
 
-#' Copy Spectrum Mill \code{.ssv} files
-#'
-#' @export
-cptac_sm_ssv <- function(dat_dir) {
-  copy_sm_ssv(dat_dir, filelist = c("PSMexport_bi1", "PSMexport_bi2", "PSMexport_jhu1",
-                                    "PSMexport_jhu2", "PSMexport_pnnl1", "PSMexport_pnnl2"))
-}
-
-
-
-#' Copy MaxQuant \code{.txt} files
-#'
-#' @export
-cptac_mqpep_txt <- function(dat_dir) {
-  copy_mq_txt(dat_dir,
-              filelist = c("peptides_bi_1", "peptides_bi_2", "peptides_jhu_1",
-                           "peptides_jhu_2", "peptides_pnnl_1", "peptides_pnnl_2"))
-}
-
-
-#' Copy MaxQuant \code{.txt} files
-#'
-#' @export
-cptac_mqpep_txt2 <- function(dat_dir) {
-  copy_mq_txt(dat_dir,
-              filelist <- c("modificationSpecificPeptides_bi_1", "modificationSpecificPeptides_bi_2",
-                            "modificationSpecificPeptides_jhu_1", "modificationSpecificPeptides_jhu2",
-                            "modificationSpecificPeptides_pnnl_1", "modificationSpecificPeptides_pnnl_2"))
-}
 
 
 
 
-#' Copy an \code{expt_smry...} file to \code{dat_dir}
-#'
-#' @export
-cptac_mqpep_expt <- function(dat_dir) {
-  copy_expt(dat_dir, "expt_smry_cptac_gl_mq.xlsx", "expt_smry.xlsx")
-}
 
 
-#' Copy \code{frac_smry.xlsx}
-#'
-#' @export
-cptac_mqpep_frac <- function(dat_dir) {
-  copy_frac(dat_dir, "frac_smry_cptac_gl.xlsx", "frac_smry.xlsx")
-}
-
-
-#' Copy protein tables
-#'
-#' \code{copy_prn_tbl} copies protein tables to a target directory.
-#' @export
-copy_prn_tbl <- function(dat_dir, from, to) {
-  dir.create(file.path(dat_dir, "Protein"), recursive = TRUE, showWarnings = FALSE)
-  dir.create(file.path(dat_dir, "Calls"), recursive = TRUE, showWarnings = FALSE)
-
-  data(list = from, package = "proteoQDA", envir = environment())
-
-  for (i in seq_along(from)) {
-    df <- get(from[i])
-    write.table(df, to[i], sep = "\t", col.names = TRUE, row.names = FALSE)
-  }
-}
-
-
-#' Copy \code{Protein.txt} and \code{Protein_impNA.txt}
-#'
-#' @export
-cptac_prn_1 <- function(dat_dir) {
-  copy_prn_tbl(dat_dir,
-               from = c("Protein_cptac_1", "Protein_impNA_cptac_1", "normPrn_pars_cptac_1"),
-               to = c(file.path(dat_dir, "Protein\\Protein.txt"),
-                      file.path(dat_dir, "Protein\\Protein_impNA.txt"),
-                      file.path(dat_dir, "Calls\\normPrn.txt")))
-}
 
 
 #' Copy an \code{expt_smry...} file to \code{dat_dir}
 #'
 #' \code{copy_expt} copies a system file of \code{expt_smry...} to the target
 #' directory specified by \code{dat_dir}.
-#' @export
 copy_expt <- function(dat_dir, from = "expt_smry.xlsx", to = "expt_smry.xlsx") {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
@@ -223,59 +380,9 @@ copy_expt <- function(dat_dir, from = "expt_smry.xlsx", to = "expt_smry.xlsx") {
   file.copy(from = filepath, to = file.path(dat_dir, to))
 }
 
-
-#' Copy an \code{expt_smry...} file to \code{dat_dir}
-#'
-#' @export
-cptac_expt_1 <- function(dat_dir) {
-  copy_expt(dat_dir, "expt_smry_cptac_gl.xlsx", "expt_smry.xlsx")
-}
-
-
-#' Copy an \code{expt_smry...} file to \code{dat_dir}
-#'
-#' @export
-cptac_expt_2 <- function(dat_dir) {
-  copy_expt(dat_dir, "expt_smry_cptac_cmbn.xlsx", "expt_smry.xlsx")
-}
-
-
-#' Copy an \code{expt_smry...} file to \code{dat_dir}
-#'
-#' @export
-cptac_expt_3 <- function(dat_dir) {
-  copy_expt(dat_dir, "expt_smry_raneff.xlsx", "expt_smry.xlsx")
-}
-
-
-#' Copy an \code{expt_smry...} file to \code{dat_dir}
-#'
-#' @export
-cptac_mq_expt_1 <- function(dat_dir) {
-  copy_expt(dat_dir, "expt_smry_cptac_gl_mq.xlsx", "expt_smry.xlsx")
-}
-
-#' Copy an \code{expt_smry...} file to \code{dat_dir}
-#'
-#' @export
-cptac_expt_ref_w2 <- function(dat_dir) {
-  copy_expt(dat_dir, "expt_smry_ref_w2.xlsx", "expt_smry_ref_w2.xlsx")
-}
-
-
-#' Copy \code{expt_smry.xlsx}
-#'
-#' @export
-expt_smry_ref_w2_w16 <- function(dat_dir) {
-  copy_expt(dat_dir, "expt_smry_ref_w2_w16.xlsx", "expt_smry_ref_w2_w16.xlsx")
-}
-
-
-
 #' Copy \code{frac_smry.xlsx}
 #'
 #' \code{copy_frac} copies the \code{frac_smry.xlsx} to a target directory.
-#' @export
 copy_frac <- function(dat_dir, from = "frac_smry.xlsx", to = "frac_smry.xlsx") {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
@@ -284,28 +391,47 @@ copy_frac <- function(dat_dir, from = "frac_smry.xlsx", to = "frac_smry.xlsx") {
   file.copy(from = filepath, to = file.path(dat_dir, to))
 }
 
+#' Copy \code{expt_smry.xlsx}
+#'
+#' @export
+copy_global_exptsmry <- function(dat_dir) {
+  copy_expt(dat_dir, "expt_smry_cptac_gl.xlsx", "expt_smry.xlsx")
+}
 
 #' Copy \code{frac_smry.xlsx}
 #'
 #' @export
-cptac_frac_1 <- function(dat_dir) {
+copy_global_fracsmry <- function(dat_dir) {
   copy_frac(dat_dir, "frac_smry_cptac_gl.xlsx", "frac_smry.xlsx")
 }
 
+#' Copy an \code{expt_smry...} file to \code{dat_dir}
+#'
+#' @export
+copy_cmbn_exptsmry <- function(dat_dir) {
+  copy_expt(dat_dir, "expt_smry_cptac_cmbn.xlsx", "expt_smry.xlsx")
+}
 
 #' Copy \code{frac_smry.xlsx}
 #'
 #' @export
-cptac_frac_2 <- function(dat_dir) {
+copy_cmbn_fracsmry <- function(dat_dir) {
   copy_frac(dat_dir, "frac_smry_cptac_cmbn.xlsx", "frac_smry.xlsx")
 }
 
-
-#' Copy \code{frac_smry.xlsx}
+#' Copy an \code{expt_smry...} file to \code{dat_dir}
 #'
 #' @export
-cptac_frac_3 <- function(dat_dir) {
-  copy_frac(dat_dir, "frac_smry_cptac_gl.xlsx", "frac_smry.xlsx")
+copy_w2ref_exptsmry <- function(dat_dir) {
+  copy_expt(dat_dir, "expt_smry_ref_w2.xlsx", "expt_smry_ref_w2.xlsx")
+}
+
+
+#' Copy \code{expt_smry.xlsx}
+#'
+#' @export
+copy_w2w16ref_exptsmry <- function(dat_dir) {
+  copy_expt(dat_dir, "expt_smry_ref_w2_w16.xlsx", "expt_smry_ref_w2_w16.xlsx")
 }
 
 
@@ -340,5 +466,89 @@ copy_refseq_mm <- function(fasta_dir = "~\\proteoQ\\dbs\\fasta\\refseq") {
 }
 
 
+
+
+
+
+
+
+
+
+#' Mascot subset rda files
+foo_mascot_subset_not_working <- function () {
+  library(magrittr)
+  dat_dir <- "~\\proteoQ\\examples"
+
+  ## global
+  filelist <- c("F003590_hdr_rm.csv", "F003591_hdr_rm.csv", "F003593_hdr_rm.csv",
+                "F003594_hdr_rm.csv", "F003595_hdr_rm.csv", "F003597_hdr_rm.csv")
+  filelist_hdr <- c("F003590_header.txt")
+
+  ## phospho
+  # filelist <- c("F003598_hdr_rm.csv", "F003602_hdr_rm.csv", "F003603_hdr_rm.csv",
+  #              "F003604_hdr_rm.csv", "F003605_hdr_rm.csv", "F003606_hdr_rm.csv")
+  # filelist_hdr <- c("F003598_header.txt")
+
+  ## combined phospho and global
+  # filelist <- c("F003607_hdr_rm.csv", "F003608_hdr_rm.csv", "F003609_hdr_rm.csv",
+  #               "F003610_hdr_rm.csv", "F003611_hdr_rm.csv", "F003612_hdr_rm.csv")
+  # filelist_hdr <- c("F003607_header.txt")
+
+  # data thinning
+  purrr::walk(filelist, ~ {
+    assign(.x, read.csv(file.path(dat_dir, .x), check.names = FALSE, header = TRUE, comment.char = "#"))
+
+    df <- get(.x)
+    r_start <- which(names(df) == "pep_scan_title") + 1
+    int_end <- ncol(df)
+
+    TMT_plex <- 10
+    col_int <- c("I126", "I127N", "I127C", "I128N", "I128C", "I129N", "I129C", "I130N", "I130C", "I131")
+    df <- df[, ((TMT_plex - 1) * 2 + r_start) : int_end]
+    df <- df[, seq(2, 2*TMT_plex, 2)]
+    colnames(df) <- col_int
+
+    df[] <- lapply(df, function(.x) {ifelse(.x == -1, NA, .x)})
+    df$is_complete <- complete.cases(df)
+    df$psm_idx <- 1:nrow(df)
+
+    n_row <- floor(nrow(df)/10)
+    df_comp <- df[df$is_complete, ]
+    set.seed(123)
+    rows <- sample(nrow(df_comp), n_row)
+    comp_idx <- df_comp[rows, "psm_idx"]
+
+    n_row2 <- floor(n_row/10)
+    df_incomp <- df[!df$is_complete, ]
+    set.seed(1234)
+    rows2 <- sample(nrow(df_incomp), n_row2)
+    incomp_idx <- df_incomp[rows2, "psm_idx"]
+
+    df_sub <- get(.x)
+    df_sub <- df_sub[c(comp_idx, incomp_idx), ]
+    df_sub <- df_sub[sample(nrow(df_sub)), ]
+
+
+    hdr_mascot <- readLines(file.path(dat_dir, filelist_hdr))
+    hdr_mascot <- gsub("\"", "", hdr_mascot, fixed = TRUE)
+    hdr_mascot <- paste0(hdr_mascot, "\n")
+
+    hdr_df <- paste0(names(df_sub), collapse = ",")
+    hdr_df <- paste0(hdr_df, "\n")
+    header <- append(hdr_mascot, hdr_df)
+
+    filename <- file.path(dat_dir, gsub("_hdr_rm", "", .x))
+    cat(header, file = filename)
+    write.table(df_sub, filename, append = TRUE, sep = ',', na = "", col.names = FALSE, row.names = FALSE, quote = FALSE)
+  })
+
+  # rda
+  purrr::walk(gsub("_hdr_rm\\.csv", "", filelist), ~ {
+    assign(.x, readLines(file.path(dat_dir, paste0(.x, ".csv"))))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+  })
+
+  # load(file.path(dat_dir, paste0(.x, ".rda")))
+}
 
 
