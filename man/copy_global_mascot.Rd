@@ -6,6 +6,10 @@
 \usage{
 copy_global_mascot(dat_dir)
 }
+\arguments{
+\item{dat_dir}{A character string to the working directory. The default is to
+match the value under the global environment.}
+}
 \description{
 Copy Mascot global \code{.csv}
 }

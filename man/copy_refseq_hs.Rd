@@ -2,10 +2,13 @@
 % Please edit documentation in R/globalCPTAC.R
 \name{copy_refseq_hs}
 \alias{copy_refseq_hs}
-\title{Copy \code{refseq_hs_2013_07.fasta}}
+\title{Copy \code{refseq_hs_2013_07.fasta} to \code{db_path}}
 \usage{
-copy_refseq_hs(fasta_dir = "~\\\\proteoQ\\\\dbs\\\\fasta\\\\refseq")
+copy_refseq_hs(db_path = "~\\\\proteoQ\\\\dbs\\\\fasta\\\\refseq")
+}
+\arguments{
+\item{db_path}{Character string; the local path for database(s).}
 }
 \description{
-Copy \code{refseq_hs_2013_07.fasta}
+Copy \code{refseq_hs_2013_07.fasta} to \code{db_path}
 }

@@ -2,10 +2,14 @@
 % Please edit documentation in R/globalCPTAC.R
 \name{copy_w2w16ref_exptsmry}
 \alias{copy_w2w16ref_exptsmry}
-\title{Copy \code{expt_smry.xlsx}}
+\title{Copy a metadata file \code{expt_smry.xlsx} to \code{dat_dir}}
 \usage{
 copy_w2w16ref_exptsmry(dat_dir)
 }
+\arguments{
+\item{dat_dir}{A character string to the working directory. The default is to
+match the value under the global environment.}
+}
 \description{
-Copy \code{expt_smry.xlsx}
+Copy a metadata file \code{expt_smry.xlsx} to \code{dat_dir}
 }

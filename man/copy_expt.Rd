@@ -2,11 +2,19 @@
 % Please edit documentation in R/globalCPTAC.R
 \name{copy_expt}
 \alias{copy_expt}
-\title{Copy an \code{expt_smry...} file to \code{dat_dir}}
+\title{Copy an \code{expt_smry[...].xlsx} file to \code{dat_dir}}
 \usage{
 copy_expt(dat_dir, from = "expt_smry.xlsx", to = "expt_smry.xlsx")
 }
+\arguments{
+\item{dat_dir}{A character string to the working directory. The default is to
+match the value under the global environment.}
+
+\item{from}{The source \code{.xlsx} file name.}
+
+\item{to}{The target \code{.xlsx} file name.}
+}
 \description{
-\code{copy_expt} copies a system file of \code{expt_smry...} to the target
-directory specified by \code{dat_dir}.
+\code{copy_expt} copies a system file of \code{expt_smry[...].xlsx} to the
+target directory specified by \code{dat_dir}.
 }

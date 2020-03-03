@@ -2,10 +2,14 @@
 % Please edit documentation in R/globalCPTAC.R
 \name{copy_global_fracsmry}
 \alias{copy_global_fracsmry}
-\title{Copy \code{frac_smry.xlsx}}
+\title{Copy a metadata file \code{frac_smry.xlsx} to \code{dat_dir}}
 \usage{
 copy_global_fracsmry(dat_dir)
 }
+\arguments{
+\item{dat_dir}{A character string to the working directory. The default is to
+match the value under the global environment.}
+}
 \description{
-Copy \code{frac_smry.xlsx}
+Copy a metadata file \code{frac_smry.xlsx} to \code{dat_dir}
 }

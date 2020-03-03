@@ -4,8 +4,15 @@
 \alias{copy_fasta}
 \title{Copy \code{fasta} files}
 \usage{
-copy_fasta(fasta_dir = "~\\\\proteoQ\\\\dbs\\\\fasta\\\\refseq",
-  from = "refseq_hs_2013_07.fasta", to = "refseq_hs_2013_07.fasta")
+copy_fasta(
+  db_path = "~\\\\proteoQ\\\\dbs\\\\fasta\\\\uniprot",
+  file = "uniprot_hs_2014_07.rda"
+)
+}
+\arguments{
+\item{db_path}{Character string; the local path for database(s).}
+
+\item{file}{Character string; the file name of a target \code{.rda}.}
 }
 \description{
 \code{copy_fasta} copies \code{fasta} files to a target directory.

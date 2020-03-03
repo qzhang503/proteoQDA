@@ -2,10 +2,19 @@
 % Please edit documentation in R/globalCPTAC.R
 \name{copy_frac}
 \alias{copy_frac}
-\title{Copy \code{frac_smry.xlsx}}
+\title{Copy a metadata file \code{frac_smry.xlsx}}
 \usage{
 copy_frac(dat_dir, from = "frac_smry.xlsx", to = "frac_smry.xlsx")
 }
+\arguments{
+\item{dat_dir}{A character string to the working directory. The default is to
+match the value under the global environment.}
+
+\item{from}{The source \code{.xlsx} file name.}
+
+\item{to}{The target \code{.xlsx} file name.}
+}
 \description{
-\code{copy_frac} copies the \code{frac_smry.xlsx} to a target directory.
+\code{copy_frac} copies the \code{frac_smry[...].xlsx} to a target directory
+specified by \code{dat_dir}.
 }

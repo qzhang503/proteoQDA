@@ -1,6 +1,7 @@
 #' Mascot subset rda files
+#'
+#' @import purrr magrittr
 foo_mascot_psmidx <- function () {
-  library(magrittr)
   dat_dir <- "~\\proteoQ\\examples"
 
   ## global
@@ -59,8 +60,9 @@ foo_mascot_psmidx <- function () {
 }
 
 #' Mascot subset rda files
+#'
+#' @import purrr magrittr
 foo_mascot_subset_tenperent_na <- function () {
-  library(magrittr)
   dat_dir <- "~\\proteoQ\\examples"
 
   ## global
@@ -89,14 +91,14 @@ foo_mascot_subset_tenperent_na <- function () {
     data_sub <- data[rows]
     data_sub <- append(hdr, data_sub)
     assign(.x, data_sub)
-    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
   })
-  # load(file.path(dat_dir, paste0(.x, ".rda")))
 }
 
 #' Mascot subset rda files
+#'
+#' @import purrr magrittr
 foo_mascot_subset <- function () {
-  library(magrittr)
   dat_dir <- "~\\proteoQ\\examples"
 
   ## global
@@ -122,13 +124,13 @@ foo_mascot_subset <- function () {
     assign(.x, data_sub)
     save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
   })
-  # load(file.path(dat_dir, paste0(.x, ".rda")))
 }
 
 
 #' MaxQuant subset rda files
+#'
+#' @import purrr magrittr
 foo_mq_subset <- function () {
-  library(magrittr)
   dat_dir <- "~\\proteoQ\\examples"
 
   ## global
@@ -139,7 +141,8 @@ foo_mq_subset <- function () {
 
   # data thinning
   purrr::walk(filelist, ~ {
-    assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), sep = "\t", check.names = FALSE, header = TRUE, comment.char = "#"))
+    assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), sep = "\t",
+                        check.names = FALSE, header = TRUE, comment.char = "#"))
 
     df <- get(.x)
     df <- df[, grepl("Reporter intensity corrected", names(df))]
@@ -172,16 +175,17 @@ foo_mq_subset <- function () {
   ## rda
   # better compression
   purrr::walk(filelist, ~ {
-   assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), check.names = FALSE, header = TRUE, sep = "\t", comment.char = "#"))
+   assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), check.names = FALSE,
+                       header = TRUE, sep = "\t", comment.char = "#"))
    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
   })
 }
 
 
 #' SpectrumMill subset rda files
+#'
+#' @import purrr magrittr
 foo_sm_subset <- function () {
-  library(magrittr)
-
   dat_dir <- "~\\proteoQ\\examples"
 
   ## global
@@ -227,9 +231,11 @@ foo_sm_subset <- function () {
   # })
 }
 
+
 #' Mascot subset rda files
+#'
+#' @import purrr magrittr
 foo_mascot_fullset <- function () {
-  library(magrittr)
   dat_dir <- "~\\proteoQ\\examples"
 
   ## global
@@ -250,35 +256,15 @@ foo_mascot_fullset <- function () {
 }
 
 
-
-
-
-
-#' Copy Mascot global \code{.csv}
-#'
-#' @export
-copy_global_mascot <- function(dat_dir) {
-	copy_csv(dat_dir, filelist = c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597"))
-}
-
-#' Copy Mascot phospho \code{.csv}
-#'
-#' @export
-copy_phospho_mascot <- function(dat_dir) {
-  copy_csv(dat_dir, filelist = c("F003598", "F003602", "F003603", "F003604", "F003605", "F003606"))
-}
-
-#' Copy Mascot phospho and global \code{.csv}
-#'
-#' @export
-copy_cmbn_phospho_mascot <- function(dat_dir) {
-  copy_csv(dat_dir, filelist = c("F003607", "F003608", "F003609", "F003610", "F003611", "F003612"))
-}
-
 #' Copy Mascot \code{.csv} files
 #'
 #' \code{copy_csv} copies the Mascot outputs of \code{.csv} files to a target
 #' directory.
+#'
+#' @import rlang purrr dplyr magrittr
+#' @param dat_dir A character string to the working directory. The default is to
+#'   match the value under the global environment.
+#' @param filelist A list of files
 copy_csv <- function(dat_dir, filelist) {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
@@ -289,31 +275,36 @@ copy_csv <- function(dat_dir, filelist) {
     df <- get(filelist[i])
 
     for (j in seq_along(df)) df[j] <- gsub("^\\s+", "", df[j])
-    # for (j in 1:grep("prot_hit_num", df)) df[j] <- gsub("^ ", "", df[j])
 
     writeLines(df, fileConn)
     close(fileConn)
   }
 }
 
-#' Copy MaxQuant global \code{.txt}
+
+#' Copy Mascot global \code{.csv}
 #'
+#' @inheritParams copy_csv
 #' @export
-copy_global_maxquant <- function(dat_dir) {
-  copy_txt(dat_dir, filelist = c("msms_bi_1", "msms_jhu_1", "msms_pnnl_1", "msms_bi_2", "msms_jhu_2", "msms_pnnl_2"))
+copy_global_mascot <- function(dat_dir) {
+	copy_csv(dat_dir, filelist = c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597"))
 }
 
-#' Copy MaxQuant phospho \code{.txt}
+
+#' Copy Mascot phospho \code{.csv}
 #'
+#' @inheritParams copy_csv
 #' @export
-copy_phospho_maxquant <- function(dat_dir) {
-  copy_txt(dat_dir, filelist = c("msms_bi_p1", "msms_jhu_p1", "msms_pnnl_p1", "msms_bi_p2", "msms_jhu_p2", "msms_pnnl_p2"))
+copy_phospho_mascot <- function(dat_dir) {
+  copy_csv(dat_dir, filelist = c("F003598", "F003602", "F003603", "F003604", "F003605", "F003606"))
 }
+
 
 #' Copy MaxQuant \code{.txt} files
 #'
 #' \code{copy_txt} copies the MaxQuant \code{msms.txt} files to a target
 #' directory.
+#' @inheritParams copy_csv
 copy_txt <- function(dat_dir, filelist) {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
@@ -327,26 +318,28 @@ copy_txt <- function(dat_dir, filelist) {
 }
 
 
-#' Copy Spectrum Mill global \code{.ssv}
+#' Copy MaxQuant global \code{.txt}
 #'
+#' @inheritParams copy_csv
 #' @export
-copy_global_sm <- function(dat_dir) {
-  copy_ssv(dat_dir, filelist = c("PSMexport_bi_1", "PSMexport_bi_2", "PSMexport_jhu_1",
-                                 "PSMexport_jhu_2", "PSMexport_pnnl_1", "PSMexport_pnnl_2"))
+copy_global_maxquant <- function(dat_dir) {
+  copy_txt(dat_dir, filelist = c("msms_bi_1", "msms_jhu_1", "msms_pnnl_1", "msms_bi_2", "msms_jhu_2", "msms_pnnl_2"))
 }
 
-#' Copy Spectrum Mill phospho \code{.ssv}
+#' Copy MaxQuant phospho \code{.txt}
 #'
+#' @inheritParams copy_csv
 #' @export
-copy_phospho_sm <- function(dat_dir) {
-  copy_ssv(dat_dir, filelist = c("PSMexport_bi_p1", "PSMexport_bi_p2", "PSMexport_jhu_p1",
-                                 "PSMexport_jhu_p2", "PSMexport_pnnl_p1", "PSMexport_pnnl_p2"))
+copy_phospho_maxquant <- function(dat_dir) {
+  copy_txt(dat_dir, filelist = c("msms_bi_p1", "msms_jhu_p1", "msms_pnnl_p1", "msms_bi_p2", "msms_jhu_p2", "msms_pnnl_p2"))
 }
+
 
 #' Copy Spectrum Mill \code{.ssv} files
 #'
 #' \code{copy_ssv} copies the Spectrum Mill outputs of \code{.ssv} files to a
 #' target directory.
+#' @inheritParams copy_csv
 copy_ssv <- function(dat_dir, filelist) {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
@@ -360,18 +353,32 @@ copy_ssv <- function(dat_dir, filelist) {
 }
 
 
-
-
-
-
-
-
-
-
-#' Copy an \code{expt_smry...} file to \code{dat_dir}
+#' Copy Spectrum Mill global \code{.ssv}
 #'
-#' \code{copy_expt} copies a system file of \code{expt_smry...} to the target
-#' directory specified by \code{dat_dir}.
+#' @inheritParams copy_csv
+#' @export
+copy_global_sm <- function(dat_dir) {
+  copy_ssv(dat_dir, filelist = c("PSMexport_bi_1", "PSMexport_bi_2", "PSMexport_jhu_1",
+                                 "PSMexport_jhu_2", "PSMexport_pnnl_1", "PSMexport_pnnl_2"))
+}
+
+#' Copy Spectrum Mill phospho \code{.ssv}
+#'
+#' @inheritParams copy_csv
+#' @export
+copy_phospho_sm <- function(dat_dir) {
+  copy_ssv(dat_dir, filelist = c("PSMexport_bi_p1", "PSMexport_bi_p2", "PSMexport_jhu_p1",
+                                 "PSMexport_jhu_p2", "PSMexport_pnnl_p1", "PSMexport_pnnl_p2"))
+}
+
+
+#' Copy an \code{expt_smry[...].xlsx} file to \code{dat_dir}
+#'
+#' \code{copy_expt} copies a system file of \code{expt_smry[...].xlsx} to the
+#' target directory specified by \code{dat_dir}.
+#' @inheritParams copy_csv
+#' @param from The source \code{.xlsx} file name.
+#' @param to The target \code{.xlsx} file name.
 copy_expt <- function(dat_dir, from = "expt_smry.xlsx", to = "expt_smry.xlsx") {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
@@ -380,9 +387,11 @@ copy_expt <- function(dat_dir, from = "expt_smry.xlsx", to = "expt_smry.xlsx") {
   file.copy(from = filepath, to = file.path(dat_dir, to))
 }
 
-#' Copy \code{frac_smry.xlsx}
+#' Copy a metadata file \code{frac_smry.xlsx}
 #'
-#' \code{copy_frac} copies the \code{frac_smry.xlsx} to a target directory.
+#' \code{copy_frac} copies the \code{frac_smry[...].xlsx} to a target directory
+#' specified by \code{dat_dir}.
+#' @inheritParams copy_expt
 copy_frac <- function(dat_dir, from = "frac_smry.xlsx", to = "frac_smry.xlsx") {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
@@ -391,92 +400,131 @@ copy_frac <- function(dat_dir, from = "frac_smry.xlsx", to = "frac_smry.xlsx") {
   file.copy(from = filepath, to = file.path(dat_dir, to))
 }
 
-#' Copy \code{expt_smry.xlsx}
+#' Copy a metadata file \code{expt_smry.xlsx} to \code{dat_dir}
 #'
+#' @inheritParams copy_expt
 #' @export
 copy_global_exptsmry <- function(dat_dir) {
   copy_expt(dat_dir, "expt_smry_cptac_gl.xlsx", "expt_smry.xlsx")
 }
 
-#' Copy \code{frac_smry.xlsx}
+#' Copy a metadata file \code{frac_smry.xlsx} to \code{dat_dir}
 #'
+#' @inheritParams copy_expt
 #' @export
 copy_global_fracsmry <- function(dat_dir) {
   copy_frac(dat_dir, "frac_smry_cptac_gl.xlsx", "frac_smry.xlsx")
 }
 
-#' Copy an \code{expt_smry...} file to \code{dat_dir}
+#' Copy a metadata file \code{expt_smry.xlsx} file to \code{dat_dir}
 #'
+#' @inheritParams copy_expt
 #' @export
 copy_cmbn_exptsmry <- function(dat_dir) {
   copy_expt(dat_dir, "expt_smry_cptac_cmbn.xlsx", "expt_smry.xlsx")
 }
 
-#' Copy \code{frac_smry.xlsx}
+#' Copy a metadata file \code{frac_smry.xlsx} to \code{dat_dir}
 #'
+#' @inheritParams copy_expt
 #' @export
 copy_cmbn_fracsmry <- function(dat_dir) {
   copy_frac(dat_dir, "frac_smry_cptac_cmbn.xlsx", "frac_smry.xlsx")
 }
 
-#' Copy an \code{expt_smry...} file to \code{dat_dir}
+#' Copy a metadata file \code{expt_smry.xlsx} to \code{dat_dir}
 #'
+#' @inheritParams copy_expt
 #' @export
 copy_w2ref_exptsmry <- function(dat_dir) {
   copy_expt(dat_dir, "expt_smry_ref_w2.xlsx", "expt_smry_ref_w2.xlsx")
 }
 
 
-#' Copy \code{expt_smry.xlsx}
+#' Copy a metadata file \code{expt_smry.xlsx} to \code{dat_dir}
 #'
+#' @inheritParams copy_expt
 #' @export
 copy_w2w16ref_exptsmry <- function(dat_dir) {
   copy_expt(dat_dir, "expt_smry_ref_w2_w16.xlsx", "expt_smry_ref_w2_w16.xlsx")
 }
 
 
+#' Save \code{fasta} files to \code{.rda}
+#'
+#' @inheritParams copy_fasta
+#' @inheritParams copy_expt
+#' @examples \donttest{
+#' foo_fasta_rda("~\\proteoQ\\dbs\\fasta\\uniprot", "uniprot_hs_2014_07.fasta")
+#' foo_fasta_rda("~\\proteoQ\\dbs\\fasta\\refseq", "refseq_hs_2013_07.fasta")
+#' }
+#'
+#' @import purrr magrittr
+foo_fasta_rda <- function(db_path = "~\\proteoQ\\dbs\\fasta\\refseq", from = "refseq_hs_2013_07.fasta") {
+  filepath <- file.path(db_path, from)
+  nm <- gsub("\\.fasta", "", from)
+  suppressWarnings(assign(nm, readLines(filepath)))
+  save(list = nm, file = file.path(db_path, paste0(nm, ".rda")), compress = "xz")
+}
+
 
 #' Copy \code{fasta} files
 #'
 #' \code{copy_fasta} copies \code{fasta} files to a target directory.
-#' @export
-copy_fasta <- function(fasta_dir = "~\\proteoQ\\dbs\\fasta\\refseq",
-                       from = "refseq_hs_2013_07.fasta", to = "refseq_hs_2013_07.fasta") {
-  dir.create(file.path(fasta_dir), recursive = TRUE, showWarnings = FALSE)
-
-  filepath <- system.file("extdata", from, package = "proteoQDA")
-  filepath <- gsub("/", "\\\\", filepath)
-  file.copy(from = filepath, to = file.path(fasta_dir, to))
+#' @param db_path Character string; the local path for database(s).
+#' @param file Character string; the file name of a target \code{.rda}.
+copy_fasta <- function(db_path = "~\\proteoQ\\dbs\\fasta\\uniprot",
+                       file = "uniprot_hs_2014_07.rda") {
+  dir.create(file.path(db_path), recursive = TRUE, showWarnings = FALSE)
+  filepath <- system.file("extdata", file, package = "proteoQDA")
+  load(filepath)
+  out_nm <- gsub("\\.rda", "", file)
+  write(get(out_nm), file.path(db_path, paste0(out_nm, ".fasta")))
 }
 
 
-#' Copy \code{refseq_hs_2013_07.fasta}
+#' Copy \code{uniprot_hs_2014_07.fasta} to \code{db_path}
 #'
+#' @inheritParams copy_fasta
 #' @export
-copy_refseq_hs <- function(fasta_dir = "~\\proteoQ\\dbs\\fasta\\refseq") {
-  copy_fasta(fasta_dir, "refseq_hs_2013_07.fasta", "refseq_hs_2013_07.fasta")
+copy_uniprot_hs <- function(db_path = "~\\proteoQ\\dbs\\fasta\\uniprot") {
+  copy_fasta(db_path, "uniprot_hs_2014_07.rda")
 }
 
 
-#' Copy \code{refseq_mm_2013_07.fasta}
+#' Copy \code{uniprot_hs_2014_07.fasta} to \code{db_path}
 #'
+#' @inheritParams copy_fasta
 #' @export
-copy_refseq_mm <- function(fasta_dir = "~\\proteoQ\\dbs\\fasta\\refseq") {
-  copy_fasta(fasta_dir, "refseq_mm_2013_07.fasta", "refseq_mm_2013_07.fasta")
+copy_uniprot_mm <- function(db_path = "~\\proteoQ\\dbs\\fasta\\uniprot") {
+  copy_fasta(db_path, "uniprot_mm_2014_07.rda")
 }
 
 
+#' Copy \code{refseq_hs_2013_07.fasta} to \code{db_path}
+#'
+#' @inheritParams copy_fasta
+#' @export
+copy_refseq_hs <- function(db_path = "~\\proteoQ\\dbs\\fasta\\refseq") {
+  copy_fasta(db_path, "refseq_hs_2013_07.rda")
+}
 
 
-
-
+#' Copy \code{refseq_mm_2013_07.fasta} to \code{db_path}
+#'
+#' @inheritParams copy_fasta
+#' @export
+copy_refseq_mm <- function(db_path = "~\\proteoQ\\dbs\\fasta\\refseq") {
+  copy_fasta(db_path, "refseq_mm_2013_07.rda")
+}
 
 
 
 
 #' Mascot subset rda files
+#'
+#' @import purrr magrittr
 foo_mascot_subset_not_working <- function () {
-  library(magrittr)
   dat_dir <- "~\\proteoQ\\examples"
 
   ## global
@@ -547,8 +595,6 @@ foo_mascot_subset_not_working <- function () {
     assign(.x, readLines(file.path(dat_dir, paste0(.x, ".csv"))))
     save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
   })
-
-  # load(file.path(dat_dir, paste0(.x, ".rda")))
 }
 
 
