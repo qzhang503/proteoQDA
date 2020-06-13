@@ -4,7 +4,9 @@
 \name{msms_jhu_1}
 \alias{msms_jhu_1}
 \title{CPTAC global data}
-\format{A PSM table with header at a length of 25552}
+\format{
+A PSM table with header at a length of 25552
+}
 \usage{
 msms_jhu_1
 }

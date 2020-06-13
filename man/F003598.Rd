@@ -4,7 +4,9 @@
 \name{F003598}
 \alias{F003598}
 \title{CPTAC phosphopeptide data}
-\format{A PSM table with header at a length of 12761}
+\format{
+A PSM table with header at a length of 12761
+}
 \usage{
 F003598
 }

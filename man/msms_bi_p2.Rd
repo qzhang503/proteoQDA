@@ -4,7 +4,9 @@
 \name{msms_bi_p2}
 \alias{msms_bi_p2}
 \title{CPTAC phosphopeptide data}
-\format{A PSM table with header at a length of 10031}
+\format{
+A PSM table with header at a length of 10031
+}
 \usage{
 msms_bi_p2
 }

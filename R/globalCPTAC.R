@@ -2,17 +2,17 @@
 #'
 #' @import purrr magrittr
 foo_mascot_psmidx <- function () {
-  dat_dir <- "~\\proteoQ\\examples"
+  dat_dir <- "~/proteoQ/examples"
 
   ## global
-  # filelist <- c("F003590_hdr_rm.csv", "F003591_hdr_rm.csv", "F003593_hdr_rm.csv",
-  #               "F003594_hdr_rm.csv", "F003595_hdr_rm.csv", "F003597_hdr_rm.csv")
-  # filelist_hdr <- c("F003590_header.txt")
+  filelist <- c("F003590_hdr_rm.csv", "F003591_hdr_rm.csv", "F003593_hdr_rm.csv",
+               "F003594_hdr_rm.csv", "F003595_hdr_rm.csv", "F003597_hdr_rm.csv")
+  filelist_hdr <- c("F003590_header.txt")
 
   ## phospho
-  filelist <- c("F003598_hdr_rm.csv", "F003602_hdr_rm.csv", "F003603_hdr_rm.csv",
-              "F003604_hdr_rm.csv", "F003605_hdr_rm.csv", "F003606_hdr_rm.csv")
-  filelist_hdr <- c("F003598_header.txt")
+  # filelist <- c("F003598_hdr_rm.csv", "F003602_hdr_rm.csv", "F003603_hdr_rm.csv",
+  #             "F003604_hdr_rm.csv", "F003605_hdr_rm.csv", "F003606_hdr_rm.csv")
+  # filelist_hdr <- c("F003598_header.txt")
 
   ## combined phospho and global
   # filelist <- c("F003607_hdr_rm.csv", "F003608_hdr_rm.csv", "F003609_hdr_rm.csv",
@@ -63,13 +63,13 @@ foo_mascot_psmidx <- function () {
 #'
 #' @import purrr magrittr
 foo_mascot_subset_tenperent_na <- function () {
-  dat_dir <- "~\\proteoQ\\examples"
+  dat_dir <- "~/proteoQ/examples"
 
   ## global
-  # filelist <- c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597")
+  filelist <- c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597")
 
   ## phospho
-  filelist <- c("F003598", "F003602", "F003603", "F003604", "F003605", "F003606")
+  # filelist <- c("F003598", "F003602", "F003603", "F003604", "F003605", "F003606")
 
   ## combined phospho and global
   # filelist <- c("F003607", "F003608", "F003609", "F003610", "F003611", "F003612")
@@ -99,16 +99,21 @@ foo_mascot_subset_tenperent_na <- function () {
 #'
 #' @import purrr magrittr
 foo_mascot_subset <- function () {
-  dat_dir <- "~\\proteoQ\\examples"
+  dat_dir <- "~/proteoQ/examples"
 
   ## global
-  # filelist <- c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597")
+  filelist <- c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597")
 
   ## phospho
-  filelist <- c("F003598", "F003602", "F003603", "F003604", "F003605", "F003606")
+  # filelist <- c("F003598", "F003602", "F003603", "F003604", "F003605", "F003606")
 
   ## combined phospho and global
   # filelist <- c("F003607", "F003608", "F003609", "F003610", "F003611", "F003612")
+
+  ## F5 and F15
+  # F003795: Refseq human and mouse
+  # F003797 Refseq human
+  # filelist <- c("F003795", "F003797")
 
   purrr::walk(filelist, ~ {
     assign(.x, readLines(file.path(dat_dir, paste0(.x, ".csv"))))
@@ -122,7 +127,7 @@ foo_mascot_subset <- function () {
     data_sub <- data[sample((eoh+1):len, len/10)]
     data_sub <- append(hdr, data_sub)
     assign(.x, data_sub)
-    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
   })
 }
 
@@ -131,7 +136,7 @@ foo_mascot_subset <- function () {
 #'
 #' @import purrr magrittr
 foo_mq_subset <- function () {
-  dat_dir <- "~\\proteoQ\\examples"
+  dat_dir <- "~/proteoQ/examples"
 
   ## global
   filelist <- c("msms_bi_1", "msms_jhu_1", "msms_pnnl_1", "msms_bi_2", "msms_jhu_2", "msms_pnnl_2")
@@ -186,7 +191,7 @@ foo_mq_subset <- function () {
 #'
 #' @import purrr magrittr
 foo_sm_subset <- function () {
-  dat_dir <- "~\\proteoQ\\examples"
+  dat_dir <- "~/proteoQ/examples"
 
   ## global
   filelist <- c("PSMexport_bi_1", "PSMexport_bi_2", "PSMexport_jhu_1", "PSMexport_jhu_2", "PSMexport_pnnl_1", "PSMexport_pnnl_2")
@@ -236,7 +241,7 @@ foo_sm_subset <- function () {
 #'
 #' @import purrr magrittr
 foo_mascot_fullset <- function () {
-  dat_dir <- "~\\proteoQ\\examples"
+  dat_dir <- "~/proteoQ/examples"
 
   ## global
   # filelist <- c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597")
@@ -525,7 +530,7 @@ copy_refseq_mm <- function(db_path = "~\\proteoQ\\dbs\\fasta\\refseq") {
 #'
 #' @import purrr magrittr
 foo_mascot_subset_not_working <- function () {
-  dat_dir <- "~\\proteoQ\\examples"
+  dat_dir <- file.path("~", "proteoQ", "examples")
 
   ## global
   filelist <- c("F003590_hdr_rm.csv", "F003591_hdr_rm.csv", "F003593_hdr_rm.csv",

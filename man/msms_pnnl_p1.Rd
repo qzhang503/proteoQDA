@@ -4,7 +4,9 @@
 \name{msms_pnnl_p1}
 \alias{msms_pnnl_p1}
 \title{CPTAC phosphopeptide data}
-\format{A PSM table with header at a length of 11117}
+\format{
+A PSM table with header at a length of 11117
+}
 \usage{
 msms_pnnl_p1
 }

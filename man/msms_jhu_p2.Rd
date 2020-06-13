@@ -4,7 +4,9 @@
 \name{msms_jhu_p2}
 \alias{msms_jhu_p2}
 \title{CPTAC phosphopeptide data}
-\format{A PSM table with header at a length of 8704}
+\format{
+A PSM table with header at a length of 8704
+}
 \usage{
 msms_jhu_p2
 }

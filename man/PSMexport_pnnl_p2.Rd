@@ -4,7 +4,9 @@
 \name{PSMexport_pnnl_p2}
 \alias{PSMexport_pnnl_p2}
 \title{CPTAC phosphopeptide data}
-\format{A PSM table with header at a length of 6637}
+\format{
+A PSM table with header at a length of 6637
+}
 \usage{
 PSMexport_pnnl_p2
 }

@@ -337,3 +337,26 @@
 
 
 
+
+
+
+
+#' CPTAC global data
+#'
+#' A \code{Mascot} PSM table from the 10th and 15th fractions of \code{BI_1,
+#' BI_2, JHU_1, JHU_2, PNNL_1, PNN_2} data. The data were searched against a
+#' "Refseq Hu and Mm" database.
+#'
+#' @format A PSM table with header at a length of 188204
+"F003795"
+
+
+#' CPTAC global data
+#'
+#' A \code{Mascot} PSM table from the 10th and 15th fractions of \code{BI_1,
+#' BI_2, JHU_1, JHU_2, PNNL_1, PNN_2} data. The data were searched against a
+#' "Refseq Hu only" database.
+#'
+#' @format A PSM table with header at a length of 137479
+"F003797"
+

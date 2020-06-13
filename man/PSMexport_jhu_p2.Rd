@@ -4,7 +4,9 @@
 \name{PSMexport_jhu_p2}
 \alias{PSMexport_jhu_p2}
 \title{CPTAC phosphopeptide data}
-\format{A PSM table with header at a length of 7385}
+\format{
+A PSM table with header at a length of 7385
+}
 \usage{
 PSMexport_jhu_p2
 }

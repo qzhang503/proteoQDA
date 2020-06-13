@@ -4,7 +4,9 @@
 \name{F003597}
 \alias{F003597}
 \title{CPTAC global data}
-\format{A PSM table with header at a length of 42333}
+\format{
+A PSM table with header at a length of 42333
+}
 \usage{
 F003597
 }

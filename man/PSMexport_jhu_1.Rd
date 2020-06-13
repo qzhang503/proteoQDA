@@ -4,7 +4,9 @@
 \name{PSMexport_jhu_1}
 \alias{PSMexport_jhu_1}
 \title{CPTAC global data}
-\format{A PSM table with header at a length of 28480}
+\format{
+A PSM table with header at a length of 28480
+}
 \usage{
 PSMexport_jhu_1
 }

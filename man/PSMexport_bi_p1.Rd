@@ -4,7 +4,9 @@
 \name{PSMexport_bi_p1}
 \alias{PSMexport_bi_p1}
 \title{CPTAC phosphopeptide data}
-\format{A PSM table with header at a length of 9007}
+\format{
+A PSM table with header at a length of 9007
+}
 \usage{
 PSMexport_bi_p1
 }
