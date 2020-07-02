@@ -388,7 +388,6 @@ copy_expt <- function(dat_dir, from = "expt_smry.xlsx", to = "expt_smry.xlsx") {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
   filepath <- system.file("extdata", from, package = "proteoQDA")
-  filepath <- gsub("/", "\\\\", filepath)
   file.copy(from = filepath, to = file.path(dat_dir, to))
 }
 
@@ -401,7 +400,6 @@ copy_frac <- function(dat_dir, from = "frac_smry.xlsx", to = "frac_smry.xlsx") {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
   filepath <- system.file("extdata", from, package = "proteoQDA")
-  filepath <- gsub("/", "\\\\", filepath)
   file.copy(from = filepath, to = file.path(dat_dir, to))
 }
 
