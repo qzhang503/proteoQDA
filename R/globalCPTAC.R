@@ -1,6 +1,7 @@
 #' Mascot subset rda files
 #'
-#' @import purrr magrittr
+#' @import purrr
+#' @importFrom magrittr %>% %$% %T>%
 foo_mascot_psmidx <- function () {
   dat_dir <- "~/proteoQ/examples"
 
@@ -61,7 +62,8 @@ foo_mascot_psmidx <- function () {
 
 #' Mascot subset rda files
 #'
-#' @import purrr magrittr
+#' @import purrr
+#' @importFrom magrittr %>% %$% %T>%
 foo_mascot_subset_tenperent_na <- function () {
   dat_dir <- "~/proteoQ/examples"
 
@@ -97,7 +99,8 @@ foo_mascot_subset_tenperent_na <- function () {
 
 #' Mascot subset rda files
 #'
-#' @import purrr magrittr
+#' @import purrr
+#' @importFrom magrittr %>% %$% %T>%
 foo_mascot_subset <- function () {
   dat_dir <- "~/proteoQ/examples"
 
@@ -134,7 +137,8 @@ foo_mascot_subset <- function () {
 
 #' MaxQuant subset rda files
 #'
-#' @import purrr magrittr
+#' @import purrr
+#' @importFrom magrittr %>% %$% %T>%
 foo_mq_subset <- function () {
   dat_dir <- "~/proteoQ/examples"
 
@@ -187,9 +191,72 @@ foo_mq_subset <- function () {
 }
 
 
+#' Resave MaxQuant rda files
+#'
+#' @import purrr dplyr
+#' @importFrom magrittr %>% %$% %T>%
+foo_mq_resave <- function () {
+  filelist = c("msms_bi_1", "msms_jhu_1", "msms_pnnl_1", "msms_bi_2", "msms_jhu_2", "msms_pnnl_2")
+
+  purrr::walk(filelist, ~ {
+    df <- get(.x)
+
+    df <- df %>%
+      mutate(`Modified sequence` =
+               gsub("(ox)", "(Oxidation (M))", `Modified sequence`, fixed = TRUE)) %>%
+      mutate(`Modified sequence` =
+               gsub("(de)", "(Deamidation (N))", `Modified sequence`, fixed = TRUE)) %>%
+      mutate(`Modified sequence` =
+               gsub("(ac)", "(Acetyl (Protein N-term))", `Modified sequence`, fixed = TRUE)) %>%
+      mutate(`Modified sequence` =
+               gsub("(gl)", "(Gln->pyro-Glu)", `Modified sequence`, fixed = TRUE))
+
+    write.table(df, file.path(dat_dir, paste0(.x, ".txt")), sep = "\t", col.names = TRUE, row.names = FALSE)
+  })
+
+  purrr::walk(filelist, ~ {
+    assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), check.names = FALSE,
+                        header = TRUE, sep = "\t", comment.char = "#"))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
+  })
+
+  # phospho
+  filelist = c("msms_bi_p1", "msms_jhu_p1", "msms_pnnl_p1", "msms_bi_p2", "msms_jhu_p2", "msms_pnnl_p2")
+
+  purrr::walk(filelist, ~ {
+    df <- get(.x)
+
+    df <- df %>%
+      mutate(`Modified sequence` =
+               gsub("(ox)", "(Oxidation (M))", `Modified sequence`, fixed = TRUE)) %>%
+      mutate(`Modified sequence` =
+               gsub("(de)", "(Deamidation (N))", `Modified sequence`, fixed = TRUE)) %>%
+      mutate(`Modified sequence` =
+               gsub("(ac)", "(Acetyl (Protein N-term))", `Modified sequence`, fixed = TRUE)) %>%
+      mutate(`Modified sequence` =
+               gsub("(gl)", "(Gln->pyro-Glu)", `Modified sequence`, fixed = TRUE)) %>%
+      mutate(`Modified sequence` =
+               gsub("pS", "S(Phospho (STY))", `Modified sequence`, fixed = TRUE)) %>%
+      mutate(`Modified sequence` =
+               gsub("pT", "T(Phospho (STY))", `Modified sequence`, fixed = TRUE)) %>%
+      mutate(`Modified sequence` =
+               gsub("pY", "Y(Phospho (STY))", `Modified sequence`, fixed = TRUE))
+
+    write.table(df, file.path(dat_dir, paste0(.x, ".txt")), sep = "\t", col.names = TRUE, row.names = FALSE)
+  })
+
+  purrr::walk(filelist, ~ {
+    assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), check.names = FALSE,
+                        header = TRUE, sep = "\t", comment.char = "#"))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
+  })
+}
+
+
 #' SpectrumMill subset rda files
 #'
-#' @import purrr magrittr
+#' @import purrr
+#' @importFrom magrittr %>% %$% %T>%
 foo_sm_subset <- function () {
   dat_dir <- "~/proteoQ/examples"
 
@@ -239,7 +306,8 @@ foo_sm_subset <- function () {
 
 #' Mascot subset rda files
 #'
-#' @import purrr magrittr
+#' @import purrr
+#' @importFrom magrittr %>% %$% %T>%
 foo_mascot_fullset <- function () {
   dat_dir <- "~/proteoQ/examples"
 
@@ -266,7 +334,8 @@ foo_mascot_fullset <- function () {
 #' \code{copy_csv} copies the Mascot outputs of \code{.csv} files to a target
 #' directory.
 #'
-#' @import rlang purrr dplyr magrittr
+#' @import rlang purrr dplyr
+#' @importFrom magrittr %>% %$% %T>%
 #' @param dat_dir A character string to the working directory. The default is to
 #'   match the value under the global environment.
 #' @param filelist A list of files
@@ -462,7 +531,8 @@ copy_w2w16ref_exptsmry <- function(dat_dir) {
 #' foo_fasta_rda("~\\proteoQ\\dbs\\fasta\\refseq", "refseq_hs_2013_07.fasta")
 #' }
 #'
-#' @import purrr magrittr
+#' @import purrr
+#' @importFrom magrittr %>% %$% %T>%
 foo_fasta_rda <- function(db_path = "~\\proteoQ\\dbs\\fasta\\refseq", from = "refseq_hs_2013_07.fasta") {
   filepath <- file.path(db_path, from)
   nm <- gsub("\\.fasta", "", from)
@@ -526,7 +596,8 @@ copy_refseq_mm <- function(db_path = "~\\proteoQ\\dbs\\fasta\\refseq") {
 
 #' Mascot subset rda files
 #'
-#' @import purrr magrittr
+#' @import purrr
+#' @importFrom magrittr %>% %$% %T>%
 foo_mascot_subset_not_working <- function () {
   dat_dir <- file.path("~", "proteoQ", "examples")
 
