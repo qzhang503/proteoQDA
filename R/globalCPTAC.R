@@ -148,6 +148,9 @@ foo_mq_subset <- function () {
   ## phospho
   # filelist <- c("msms_bi_p1", "msms_jhu_p1", "msms_pnnl_p1", "msms_bi_p2", "msms_jhu_p2", "msms_pnnl_p2")
 
+  ## LFQ
+  # filelist <- c("msms", "peptides")
+
   # data thinning
   purrr::walk(filelist, ~ {
     assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), sep = "\t",
@@ -186,7 +189,7 @@ foo_mq_subset <- function () {
   purrr::walk(filelist, ~ {
    assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), check.names = FALSE,
                        header = TRUE, sep = "\t", comment.char = "#"))
-   save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+   save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
   })
 }
 
@@ -408,6 +411,15 @@ copy_phospho_maxquant <- function(dat_dir) {
   copy_txt(dat_dir, filelist = c("msms_bi_p1", "msms_jhu_p1", "msms_pnnl_p1", "msms_bi_p2", "msms_jhu_p2", "msms_pnnl_p2"))
 }
 
+#' Copy MaxQuant LFQ global \code{.txt}
+#'
+#' @inheritParams copy_csv
+#' @export
+copy_global_maxquant_lfq <- function(dat_dir) {
+  copy_txt(dat_dir, filelist = c("msms", "peptides"))
+}
+
+
 
 #' Copy Spectrum Mill \code{.ssv} files
 #'
@@ -520,6 +532,24 @@ copy_w2ref_exptsmry <- function(dat_dir) {
 copy_w2w16ref_exptsmry <- function(dat_dir) {
   copy_expt(dat_dir, "expt_smry_ref_w2_w16.xlsx", "expt_smry_ref_w2_w16.xlsx")
 }
+
+#' Copy a metadata file \code{expt_smry.xlsx} to \code{dat_dir}
+#'
+#' @inheritParams copy_expt
+#' @export
+copy_global_exptsmry_lfq <- function(dat_dir) {
+  copy_expt(dat_dir, "expt_smry_mq_lfq.xlsx", "expt_smry.xlsx")
+}
+
+#' Copy a metadata file \code{frac_smry.xlsx} to \code{dat_dir}
+#'
+#' @inheritParams copy_expt
+#' @export
+copy_global_fracsmry_lfq <- function(dat_dir) {
+  copy_frac(dat_dir, "frac_smry_mq_lfq.xlsx", "frac_smry.xlsx")
+}
+
+
 
 
 #' Save \code{fasta} files to \code{.rda}

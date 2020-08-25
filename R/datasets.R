@@ -360,3 +360,49 @@
 #' @format A PSM table with header at a length of 137479
 "F003797"
 
+
+#' UniProt subcellular locations
+#'
+#' A table complied from UniProt with columns "Entry" and "Subcellular location [CC]".
+#'
+#' @format A table of columns "uniprot_acc" and "scc_1", "scc_2" etc. at a
+#'   length of 16697.
+"scc_hs"
+
+
+#' UniProt subcellular locations
+#'
+#' A table compiled from UniProt with columns "Entry" and "Subcellular location [CC]".
+#'
+#' @format A table of columns "uniprot_acc" and "scc_1", "scc_2" etc. at a
+#'   length of 14540.
+"scc_mm"
+
+#' UniProt subcellular locations
+#'
+#' A table compiled from UniProt with columns "Entry" and "Subcellular location [CC]".
+#'
+#' @format A table of columns "uniprot_acc" and "scc_1", "scc_2" etc. at a
+#'   length of 139561
+"scc_rn"
+
+
+
+#' CPTAC LFQ data from MaxQuant
+#'
+#' A \code{MaxQuant} LFQ PSM table from the 10th and 15th fractions of
+#' \code{BI_1, BI_2, JHU_1, JHU_2, PNNL_1, PNN_2} data. The data were searched
+#' against a "Refseq Hu and Mm" database. Some columns were excluded to reduce
+#' the size of the file.
+#'
+#' @format A PSM table at a length of 139561.
+"msms"
+
+
+#' CPTAC LFQ data from MaxQuant
+#'
+#' A \code{MaxQuant} LFQ peptide table corresponding to data set "msms_lfq".
+#'
+#' @format A peptide table at a length of 57517.
+"peptides"
+
