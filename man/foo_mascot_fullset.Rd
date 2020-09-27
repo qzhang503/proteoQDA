@@ -2,10 +2,10 @@
 % Please edit documentation in R/globalCPTAC.R
 \name{foo_mascot_fullset}
 \alias{foo_mascot_fullset}
-\title{Mascot subset rda files}
+\title{Mascot rda files}
 \usage{
 foo_mascot_fullset()
 }
 \description{
-Mascot subset rda files
+Mascot rda files
 }

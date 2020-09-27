@@ -1,7 +1,5 @@
 #' Mascot subset rda files
 #'
-#' @import purrr
-#' @importFrom magrittr %>% %$% %T>%
 foo_mascot_psmidx <- function () {
   dat_dir <- "~/proteoQ/examples"
 
@@ -62,8 +60,6 @@ foo_mascot_psmidx <- function () {
 
 #' Mascot subset rda files
 #'
-#' @import purrr
-#' @importFrom magrittr %>% %$% %T>%
 foo_mascot_subset_tenperent_na <- function () {
   dat_dir <- "~/proteoQ/examples"
 
@@ -99,8 +95,6 @@ foo_mascot_subset_tenperent_na <- function () {
 
 #' Mascot subset rda files
 #'
-#' @import purrr
-#' @importFrom magrittr %>% %$% %T>%
 foo_mascot_subset <- function () {
   dat_dir <- "~/proteoQ/examples"
 
@@ -137,8 +131,6 @@ foo_mascot_subset <- function () {
 
 #' MaxQuant subset rda files
 #'
-#' @import purrr
-#' @importFrom magrittr %>% %$% %T>%
 foo_mq_subset <- function () {
   dat_dir <- "~/proteoQ/examples"
 
@@ -194,10 +186,8 @@ foo_mq_subset <- function () {
 }
 
 
-#' Resave MaxQuant rda files
+#' Re-save MaxQuant rda files
 #'
-#' @import purrr dplyr
-#' @importFrom magrittr %>% %$% %T>%
 foo_mq_resave <- function () {
   filelist = c("msms_bi_1", "msms_jhu_1", "msms_pnnl_1", "msms_bi_2", "msms_jhu_2", "msms_pnnl_2")
 
@@ -258,8 +248,6 @@ foo_mq_resave <- function () {
 
 #' SpectrumMill subset rda files
 #'
-#' @import purrr
-#' @importFrom magrittr %>% %$% %T>%
 foo_sm_subset <- function () {
   dat_dir <- "~/proteoQ/examples"
 
@@ -307,10 +295,8 @@ foo_sm_subset <- function () {
 }
 
 
-#' Mascot subset rda files
+#' Mascot rda files
 #'
-#' @import purrr
-#' @importFrom magrittr %>% %$% %T>%
 foo_mascot_fullset <- function () {
   dat_dir <- "~/proteoQ/examples"
 
@@ -323,12 +309,34 @@ foo_mascot_fullset <- function () {
   ## combined phospho and global
   # filelist <- c("F003607", "F003608", "F003609", "F003610", "F003611", "F003612")
 
+  ## MSFragger
+  # filelist <- c("psm_bi1", "psm_bi2", "psm_jhu1", "psm_jhu2", "psm_pnnl1", "psm_pnnl2")
+
   purrr::walk(filelist, ~ {
     assign(.x, readLines(file.path(dat_dir, paste0(.x, ".csv"))))
-    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
   })
 
   # load(file.path(dat_dir, paste0(.x, ".rda")))
+}
+
+
+#' MSFragger rda files
+#'
+foo_msfragger_fullset <- function () {
+  dat_dir <- "~/proteoQ/examples"
+
+  ## MSFragger
+  filelist <- c("psm_bi_1", "psm_bi_2", "psm_jhu_1", "psm_jhu_2", "psm_pnnl_1", "psm_pnnl_2")
+
+  ## phospho
+  #
+
+  purrr::walk(filelist, ~ {
+    assign(.x, read.delim(file.path(dat_dir, paste0(.x, ".tsv")), check.names = FALSE,
+                          header = TRUE, sep = "\t", comment.char = "#"))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
+  })
 }
 
 
@@ -337,8 +345,11 @@ foo_mascot_fullset <- function () {
 #' \code{copy_csv} copies the Mascot outputs of \code{.csv} files to a target
 #' directory.
 #'
-#' @import rlang purrr dplyr
+#' @import purrr dplyr
 #' @importFrom magrittr %>% %$% %T>%
+#' @rawNamespace import(rlang, except = c(list_along, invoke, flatten_raw,
+#'   modify, as_function, flatten_dbl, flatten_lgl, flatten_int,
+#'   flatten_chr, splice, flatten, prepend, "%@%"))
 #' @param dat_dir A character string to the working directory. The default is to
 #'   match the value under the global environment.
 #' @param filelist A list of files
@@ -458,6 +469,39 @@ copy_phospho_sm <- function(dat_dir) {
 }
 
 
+#' Copy MSFragger \code{.tsv} files
+#'
+#' \code{copy_tsv} copies the MSFragger \code{psm.tsv} files to a target
+#' directory.
+#' @inheritParams copy_csv
+copy_tsv <- function(dat_dir, filelist) {
+  dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
+
+  data(list = filelist, package = "proteoQDA", envir = environment())
+
+  for (i in seq_along(filelist)) {
+    df <- get(filelist[i])
+    write.table(df, file.path(dat_dir, paste0(filelist[i], ".tsv")), sep = "\t",
+                col.names = TRUE, row.names = FALSE)
+  }
+}
+
+
+#' Copy MSFragger global \code{.tsv}
+#'
+#' @inheritParams copy_csv
+#' @export
+copy_global_msfragger_lfq <- function(dat_dir) {
+  copy_tsv(dat_dir, filelist = c("psm_bi_1", "psm_bi_2", "psm_jhu_1",
+                                 "psm_jhu_2", "psm_pnnl_1", "psm_pnnl_2"))
+}
+
+
+
+
+
+
+
 #' Copy an \code{expt_smry[...].xlsx} file to \code{dat_dir}
 #'
 #' \code{copy_expt} copies a system file of \code{expt_smry[...].xlsx} to the
@@ -538,7 +582,7 @@ copy_w2w16ref_exptsmry <- function(dat_dir) {
 #' @inheritParams copy_expt
 #' @export
 copy_global_exptsmry_lfq <- function(dat_dir) {
-  copy_expt(dat_dir, "expt_smry_mq_lfq.xlsx", "expt_smry.xlsx")
+  copy_expt(dat_dir, "expt_smry_lfq.xlsx", "expt_smry.xlsx")
 }
 
 #' Copy a metadata file \code{frac_smry.xlsx} to \code{dat_dir}
@@ -546,7 +590,7 @@ copy_global_exptsmry_lfq <- function(dat_dir) {
 #' @inheritParams copy_expt
 #' @export
 copy_global_fracsmry_lfq <- function(dat_dir) {
-  copy_frac(dat_dir, "frac_smry_mq_lfq.xlsx", "frac_smry.xlsx")
+  copy_frac(dat_dir, "frac_smry_lfq.xlsx", "frac_smry.xlsx")
 }
 
 
@@ -560,9 +604,6 @@ copy_global_fracsmry_lfq <- function(dat_dir) {
 #' foo_fasta_rda("~\\proteoQ\\dbs\\fasta\\uniprot", "uniprot_hs_2014_07.fasta")
 #' foo_fasta_rda("~\\proteoQ\\dbs\\fasta\\refseq", "refseq_hs_2013_07.fasta")
 #' }
-#'
-#' @import purrr
-#' @importFrom magrittr %>% %$% %T>%
 foo_fasta_rda <- function(db_path = "~\\proteoQ\\dbs\\fasta\\refseq", from = "refseq_hs_2013_07.fasta") {
   filepath <- file.path(db_path, from)
   nm <- gsub("\\.fasta", "", from)
@@ -626,8 +667,6 @@ copy_refseq_mm <- function(db_path = "~\\proteoQ\\dbs\\fasta\\refseq") {
 
 #' Mascot subset rda files
 #'
-#' @import purrr
-#' @importFrom magrittr %>% %$% %T>%
 foo_mascot_subset_not_working <- function () {
   dat_dir <- file.path("~", "proteoQ", "examples")
 

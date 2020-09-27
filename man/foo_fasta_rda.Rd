@@ -22,5 +22,4 @@ Save \code{fasta} files to \code{.rda}
 foo_fasta_rda("~\\\\proteoQ\\\\dbs\\\\fasta\\\\uniprot", "uniprot_hs_2014_07.fasta")
 foo_fasta_rda("~\\\\proteoQ\\\\dbs\\\\fasta\\\\refseq", "refseq_hs_2013_07.fasta")
 }
-
 }

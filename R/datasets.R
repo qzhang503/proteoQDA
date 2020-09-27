@@ -272,10 +272,58 @@
 "PSMexport_pnnl_2"
 
 
+#' CPTAC global data
+#'
+#' A \code{MSFragger} PSM table from the \code{BI_1} dataset. The PSM entries were
+#' from offline fractions 10 and 15.
+#'
+#' @format A PSM table of 31480 rows and 32 columns
+"psm_bi_1"
 
 
+#' CPTAC global data
+#'
+#' A \code{MSFragger} PSM table from the \code{BI_2} dataset. The PSM entries were
+#' from offline fractions 10 and 15.
+#'
+#' @format A PSM table of 30352 rows and 32 columns
+"psm_bi_2"
 
 
+#' CPTAC global data
+#'
+#' A \code{MSFragger} PSM table from the \code{JHU_1} dataset. The PSM entries were
+#' from offline fractions 10 and 15.
+#'
+#' @format A PSM table of 30059 rows and 32 columns
+"psm_jhu_1"
+
+
+#' CPTAC global data
+#'
+#' A \code{MSFragger} PSM table from the \code{JHU_2} dataset. The PSM entries were
+#' from offline fractions 10 and 15.
+#'
+#' @format A PSM table of 31262 rows and 32 columns
+"psm_jhu_2"
+
+
+#' CPTAC global data
+#'
+#' A \code{MSFragger} PSM table from the \code{PNNL_1} dataset. The PSM entries were
+#' from offline fractions 10 and 15.
+#'
+#' @format A PSM table of 32781 rows and 32 columns
+"psm_pnnl_1"
+
+
+#' CPTAC global data
+#'
+#' A \code{MSFragger} PSM table from the \code{PNNL_2} dataset. The PSM entries were
+#' from offline fractions 10 and 15.
+#'
+#' @format A PSM table of 33991 rows and 32 columns
+"psm_pnnl_2"
 
 
 

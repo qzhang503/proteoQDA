@@ -2,10 +2,10 @@
 % Please edit documentation in R/globalCPTAC.R
 \name{foo_mq_resave}
 \alias{foo_mq_resave}
-\title{Resave MaxQuant rda files}
+\title{Re-save MaxQuant rda files}
 \usage{
 foo_mq_resave()
 }
 \description{
-Resave MaxQuant rda files
+Re-save MaxQuant rda files
 }
