@@ -11,7 +11,7 @@ A PSM table of 31262 rows and 32 columns
 psm_jhu_2
 }
 \description{
-A \code{MSFragger} PSM table from the \code{JHU_2} dataset. The PSM entries were
+A \code{MSFragger} LFQ PSM table from the \code{JHU_2} dataset. The PSM entries were
 from offline fractions 10 and 15.
 }
 \keyword{datasets}

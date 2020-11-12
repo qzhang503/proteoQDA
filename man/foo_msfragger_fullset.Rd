@@ -2,10 +2,10 @@
 % Please edit documentation in R/globalCPTAC.R
 \name{foo_msfragger_fullset}
 \alias{foo_msfragger_fullset}
-\title{MSFragger rda files}
+\title{MSFragger LFQ rda files}
 \usage{
 foo_msfragger_fullset()
 }
 \description{
-MSFragger rda files
+MSFragger LFQ rda files
 }

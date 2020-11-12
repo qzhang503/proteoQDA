@@ -11,7 +11,7 @@ A PSM table of 30352 rows and 32 columns
 psm_bi_2
 }
 \description{
-A \code{MSFragger} PSM table from the \code{BI_2} dataset. The PSM entries were
+A \code{MSFragger} LFQ PSM table from the \code{BI_2} dataset. The PSM entries were
 from offline fractions 10 and 15.
 }
 \keyword{datasets}

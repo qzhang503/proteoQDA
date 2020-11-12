@@ -274,7 +274,7 @@
 
 #' CPTAC global data
 #'
-#' A \code{MSFragger} PSM table from the \code{BI_1} dataset. The PSM entries were
+#' A \code{MSFragger} LFQ PSM table from the \code{BI_1} dataset. The PSM entries were
 #' from offline fractions 10 and 15.
 #'
 #' @format A PSM table of 31480 rows and 32 columns
@@ -283,7 +283,7 @@
 
 #' CPTAC global data
 #'
-#' A \code{MSFragger} PSM table from the \code{BI_2} dataset. The PSM entries were
+#' A \code{MSFragger} LFQ PSM table from the \code{BI_2} dataset. The PSM entries were
 #' from offline fractions 10 and 15.
 #'
 #' @format A PSM table of 30352 rows and 32 columns
@@ -292,7 +292,7 @@
 
 #' CPTAC global data
 #'
-#' A \code{MSFragger} PSM table from the \code{JHU_1} dataset. The PSM entries were
+#' A \code{MSFragger} LFQ PSM table from the \code{JHU_1} dataset. The PSM entries were
 #' from offline fractions 10 and 15.
 #'
 #' @format A PSM table of 30059 rows and 32 columns
@@ -301,7 +301,7 @@
 
 #' CPTAC global data
 #'
-#' A \code{MSFragger} PSM table from the \code{JHU_2} dataset. The PSM entries were
+#' A \code{MSFragger} LFQ PSM table from the \code{JHU_2} dataset. The PSM entries were
 #' from offline fractions 10 and 15.
 #'
 #' @format A PSM table of 31262 rows and 32 columns
@@ -310,7 +310,7 @@
 
 #' CPTAC global data
 #'
-#' A \code{MSFragger} PSM table from the \code{PNNL_1} dataset. The PSM entries were
+#' A \code{MSFragger} LFQ PSM table from the \code{PNNL_1} dataset. The PSM entries were
 #' from offline fractions 10 and 15.
 #'
 #' @format A PSM table of 32781 rows and 32 columns
@@ -319,7 +319,7 @@
 
 #' CPTAC global data
 #'
-#' A \code{MSFragger} PSM table from the \code{PNNL_2} dataset. The PSM entries were
+#' A \code{MSFragger} LFQ PSM table from the \code{PNNL_2} dataset. The PSM entries were
 #' from offline fractions 10 and 15.
 #'
 #' @format A PSM table of 33991 rows and 32 columns
@@ -327,6 +327,58 @@
 
 
 
+#' CPTAC global data
+#'
+#' A \code{MSFragger} TMT PSM table from the \code{BI_1} dataset. The PSM entries were
+#' sampled at 10% from the full list.
+#'
+#' @format A PSM table of 36843 rows and 44 columns
+"psm_tmt_bi_1"
+
+
+#' CPTAC global data
+#'
+#' A \code{MSFragger} TMT PSM table from the \code{BI_2} dataset. The PSM entries were
+#' from offline fractions 10 and 15.
+#'
+#' @format A PSM table of 35854 rows and 44 columns
+"psm_tmt_bi_2"
+
+
+#' CPTAC global data
+#'
+#' A \code{MSFragger} TMT PSM table from the \code{JHU_1} dataset. The PSM entries were
+#' sampled at 10% from the full list.
+#'
+#' @format A PSM table of 35657 rows and 44 columns
+"psm_tmt_jhu_1"
+
+
+#' CPTAC global data
+#'
+#' A \code{MSFragger} TMT PSM table from the \code{JHU_2} dataset. The PSM entries were
+#' sampled at 10% from the full list.
+#'
+#' @format A PSM table of 36680 rows and 44 columns
+"psm_tmt_jhu_2"
+
+
+#' CPTAC global data
+#'
+#' A \code{MSFragger} TMT PSM table from the \code{PNNL_1} dataset. The PSM entries were
+#' sampled at 10% from the full list.
+#'
+#' @format A PSM table of 39244 rows and 44 columns
+"psm_tmt_pnnl_1"
+
+
+#' CPTAC global data
+#'
+#' A \code{MSFragger} TMT PSM table from the \code{PNNL_2} dataset. The PSM entries were
+#' sampled at 10% from the full list.
+#'
+#' @format A PSM table of 40018 rows and 44 columns
+"psm_tmt_pnnl_2"
 
 
 

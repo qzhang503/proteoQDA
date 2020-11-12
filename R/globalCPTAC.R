@@ -20,7 +20,8 @@ foo_mascot_psmidx <- function () {
 
   # data thinning
   purrr::walk(filelist, ~ {
-    assign(.x, read.csv(file.path(dat_dir, .x), check.names = FALSE, header = TRUE, comment.char = "#"))
+    assign(.x, read.csv(file.path(dat_dir, .x), check.names = FALSE,
+                        header = TRUE, comment.char = "#"))
 
     df <- get(.x)
     r_start <- which(names(df) == "pep_scan_title") + 1
@@ -135,7 +136,8 @@ foo_mq_subset <- function () {
   dat_dir <- "~/proteoQ/examples"
 
   ## global
-  filelist <- c("msms_bi_1", "msms_jhu_1", "msms_pnnl_1", "msms_bi_2", "msms_jhu_2", "msms_pnnl_2")
+  filelist <- c("msms_bi_1", "msms_jhu_1", "msms_pnnl_1",
+                "msms_bi_2", "msms_jhu_2", "msms_pnnl_2")
 
   ## phospho
   # filelist <- c("msms_bi_p1", "msms_jhu_p1", "msms_pnnl_p1", "msms_bi_p2", "msms_jhu_p2", "msms_pnnl_p2")
@@ -321,7 +323,7 @@ foo_mascot_fullset <- function () {
 }
 
 
-#' MSFragger rda files
+#' MSFragger LFQ rda files
 #'
 foo_msfragger_fullset <- function () {
   dat_dir <- "~/proteoQ/examples"
@@ -330,11 +332,68 @@ foo_msfragger_fullset <- function () {
   filelist <- c("psm_bi_1", "psm_bi_2", "psm_jhu_1", "psm_jhu_2", "psm_pnnl_1", "psm_pnnl_2")
 
   ## phospho
-  #
+  # filelist <- c("psm_bi_p1", "psm_bi_p2", "psm_jhu_p1", "psm_jhu_p2", "psm_pnnl_p1", "psm_pnnl_p2")
 
   purrr::walk(filelist, ~ {
     assign(.x, read.delim(file.path(dat_dir, paste0(.x, ".tsv")), check.names = FALSE,
                           header = TRUE, sep = "\t", comment.char = "#"))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
+  })
+}
+
+
+#' MSFragger TMT rda files
+#'
+foo_msfragger_tmt_subset <- function () {
+  dat_dir <- "~/proteoQ/examples"
+
+  ## global
+  filelist <- c("psm_tmt_bi_1", "psm_tmt_bi_2", "psm_tmt_jhu_1", "psm_tmt_jhu_2", "psm_tmt_pnnl_1", "psm_tmt_pnnl_2")
+
+
+  ## phospho
+  # filelist <- c("psm_tmt_bi_p1", "psm_tmt_bi_p2", "psm_tmt_jhu_p1", "psm_tmt_jhu_p2", "psm_tmt_pnnl_p1", "psm_tmt_pnnl_p2")
+
+  # data thinning
+  set.seed(7331)
+  purrr::walk(filelist, ~ {
+    assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".tsv")), sep = "\t",
+                        check.names = FALSE, header = TRUE, comment.char = "#"))
+
+    df <- get(.x)
+    df <- df[, grepl("^W.*\\.TMT[12]{1}$", names(df))]
+    df$is_complete <- complete.cases(df)
+    df$psm_idx <- 1:nrow(df)
+
+    df_comp <- df[df$is_complete, ]
+    set.seed(123)
+    rows <- sample(nrow(df_comp), floor(nrow(df_comp)/10))
+    comp_idx <- df_comp[rows, "psm_idx"] %>% unclass() %>% unlist()
+
+
+    df_incomp <- df[!df$is_complete, ]
+    set.seed(1234)
+    rows2 <- sample(nrow(df_incomp), floor(nrow(df_incomp)/10))
+    incomp_idx <- df_incomp[rows2, "psm_idx"] %>% unclass() %>% unlist()
+
+    df <- get(.x)
+    df <- df[c(comp_idx, incomp_idx), ]
+    df <- df[sample(nrow(df)), ]
+
+    ## poor compression
+    # assign(.x, df)
+    # save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+    # load(file.path(dat_dir, paste0(.x, ".rda")))
+
+    write.table(df, file.path(dat_dir, paste0(.x, ".tsv")), sep = "\t",
+                col.names = TRUE, row.names = FALSE)
+  })
+
+  ## rda
+  # better compression
+  purrr::walk(filelist, ~ {
+    assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".tsv")), check.names = FALSE,
+                        header = TRUE, sep = "\t", comment.char = "#"))
     save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
   })
 }
@@ -487,7 +546,16 @@ copy_tsv <- function(dat_dir, filelist) {
 }
 
 
-#' Copy MSFragger global \code{.tsv}
+#' Copy MSFragger TMT global \code{.tsv}
+#'
+#' @inheritParams copy_csv
+#' @export
+copy_global_ms <- function(dat_dir) {
+  copy_tsv(dat_dir, filelist = c("psm_tmt_bi_1", "psm_tmt_bi_2", "psm_tmt_jhu_1",
+                                 "psm_tmt_jhu_2", "psm_tmt_pnnl_1", "psm_tmt_pnnl_2"))
+}
+
+#' Copy MSFragger LFQ global \code{.tsv}
 #'
 #' @inheritParams copy_csv
 #' @export
@@ -495,9 +563,6 @@ copy_global_msfragger_lfq <- function(dat_dir) {
   copy_tsv(dat_dir, filelist = c("psm_bi_1", "psm_bi_2", "psm_jhu_1",
                                  "psm_jhu_2", "psm_pnnl_1", "psm_pnnl_2"))
 }
-
-
-
 
 
 
