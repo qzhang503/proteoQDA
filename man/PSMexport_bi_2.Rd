@@ -3,7 +3,7 @@
 \docType{data}
 \name{PSMexport_bi_2}
 \alias{PSMexport_bi_2}
-\title{CPTAC global data}
+\title{SM global TMT}
 \format{
 A PSM table with header at a length of 30305
 }

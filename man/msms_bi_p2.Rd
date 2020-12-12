@@ -3,7 +3,7 @@
 \docType{data}
 \name{msms_bi_p2}
 \alias{msms_bi_p2}
-\title{CPTAC phosphopeptide data}
+\title{MaxQuant phosphopeptide TMT}
 \format{
 A PSM table with header at a length of 10031
 }

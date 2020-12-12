@@ -3,7 +3,7 @@
 \docType{data}
 \name{msms_pnnl_1}
 \alias{msms_pnnl_1}
-\title{CPTAC global data}
+\title{MaxQuant global TMT}
 \format{
 A PSM table with header at a length of 28470
 }

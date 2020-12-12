@@ -28,7 +28,8 @@ foo_mascot_psmidx <- function () {
     int_end <- ncol(df)
 
     TMT_plex <- 10
-    col_int <- c("I126", "I127N", "I127C", "I128N", "I128C", "I129N", "I129C", "I130N", "I130C", "I131")
+    col_int <- c("I126", "I127N", "I127C", "I128N", "I128C",
+                 "I129N", "I129C", "I130N", "I130C", "I131")
     df <- df[, ((TMT_plex - 1) * 2 + r_start) : int_end]
     df <- df[, seq(2, 2*TMT_plex, 2)]
     colnames(df) <- col_int
@@ -54,7 +55,8 @@ foo_mascot_psmidx <- function () {
     both_idx <- sort(both_idx)
     both_idx <- data.frame(idx = both_idx)
 
-    write.table(both_idx, filename, sep = ',', na = "", col.names = TRUE, row.names = FALSE, quote = FALSE)
+    write.table(both_idx, filename, sep = ',', na = "",
+                col.names = TRUE, row.names = FALSE, quote = FALSE)
   })
 
 }
@@ -70,9 +72,6 @@ foo_mascot_subset_tenperent_na <- function () {
   ## phospho
   # filelist <- c("F003598", "F003602", "F003603", "F003604", "F003605", "F003606")
 
-  ## combined phospho and global
-  # filelist <- c("F003607", "F003608", "F003609", "F003610", "F003611", "F003612")
-
   purrr::walk(filelist, ~ {
     assign(.x, readLines(file.path(dat_dir, paste0(.x, ".csv"))))
 
@@ -80,7 +79,8 @@ foo_mascot_subset_tenperent_na <- function () {
     eoh <- grep("prot_hit_num", data)
     hdr <- data[1:eoh]
 
-    rows <- read.csv(file.path(dat_dir, paste0(.x, "_idx.csv")), check.names = FALSE, header = TRUE,
+    rows <- read.csv(file.path(dat_dir, paste0(.x, "_idx.csv")),
+                     check.names = FALSE, header = TRUE,
                      comment.char = "#")
     rows <- rows + length(hdr)
     rows <- unlist(rows)
@@ -125,6 +125,20 @@ foo_mascot_subset <- function () {
     data_sub <- data[sample((eoh+1):len, len/10)]
     data_sub <- append(hdr, data_sub)
     assign(.x, data_sub)
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
+  })
+}
+
+
+#' Mascot phospho LFQ rda files
+#'
+foo_mascot_lfq <- function() {
+  dat_dir <- "~/proteoQ/examples"
+
+  filelist <- c("F003997_lfq_p")
+
+  purrr::walk(filelist, ~ {
+    assign(.x, readLines(file.path(dat_dir, paste0(.x, ".csv"))))
     save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
   })
 }
@@ -191,22 +205,28 @@ foo_mq_subset <- function () {
 #' Re-save MaxQuant rda files
 #'
 foo_mq_resave <- function () {
-  filelist = c("msms_bi_1", "msms_jhu_1", "msms_pnnl_1", "msms_bi_2", "msms_jhu_2", "msms_pnnl_2")
+  filelist = c("msms_bi_1", "msms_jhu_1", "msms_pnnl_1",
+               "msms_bi_2", "msms_jhu_2", "msms_pnnl_2")
 
   purrr::walk(filelist, ~ {
     df <- get(.x)
 
     df <- df %>%
       mutate(`Modified sequence` =
-               gsub("(ox)", "(Oxidation (M))", `Modified sequence`, fixed = TRUE)) %>%
+               gsub("(ox)", "(Oxidation (M))", `Modified sequence`,
+                    fixed = TRUE)) %>%
       mutate(`Modified sequence` =
-               gsub("(de)", "(Deamidation (N))", `Modified sequence`, fixed = TRUE)) %>%
+               gsub("(de)", "(Deamidation (N))", `Modified sequence`,
+                    fixed = TRUE)) %>%
       mutate(`Modified sequence` =
-               gsub("(ac)", "(Acetyl (Protein N-term))", `Modified sequence`, fixed = TRUE)) %>%
+               gsub("(ac)", "(Acetyl (Protein N-term))", `Modified sequence`,
+                    fixed = TRUE)) %>%
       mutate(`Modified sequence` =
-               gsub("(gl)", "(Gln->pyro-Glu)", `Modified sequence`, fixed = TRUE))
+               gsub("(gl)", "(Gln->pyro-Glu)", `Modified sequence`,
+                    fixed = TRUE))
 
-    write.table(df, file.path(dat_dir, paste0(.x, ".txt")), sep = "\t", col.names = TRUE, row.names = FALSE)
+    write.table(df, file.path(dat_dir, paste0(.x, ".txt")),
+                sep = "\t", col.names = TRUE, row.names = FALSE)
   })
 
   purrr::walk(filelist, ~ {
@@ -216,28 +236,37 @@ foo_mq_resave <- function () {
   })
 
   # phospho
-  filelist = c("msms_bi_p1", "msms_jhu_p1", "msms_pnnl_p1", "msms_bi_p2", "msms_jhu_p2", "msms_pnnl_p2")
+  filelist = c("msms_bi_p1", "msms_jhu_p1", "msms_pnnl_p1",
+               "msms_bi_p2", "msms_jhu_p2", "msms_pnnl_p2")
 
   purrr::walk(filelist, ~ {
     df <- get(.x)
 
     df <- df %>%
       mutate(`Modified sequence` =
-               gsub("(ox)", "(Oxidation (M))", `Modified sequence`, fixed = TRUE)) %>%
+               gsub("(ox)", "(Oxidation (M))", `Modified sequence`,
+                    fixed = TRUE)) %>%
       mutate(`Modified sequence` =
-               gsub("(de)", "(Deamidation (N))", `Modified sequence`, fixed = TRUE)) %>%
+               gsub("(de)", "(Deamidation (N))", `Modified sequence`,
+                    fixed = TRUE)) %>%
       mutate(`Modified sequence` =
-               gsub("(ac)", "(Acetyl (Protein N-term))", `Modified sequence`, fixed = TRUE)) %>%
+               gsub("(ac)", "(Acetyl (Protein N-term))", `Modified sequence`,
+                    fixed = TRUE)) %>%
       mutate(`Modified sequence` =
-               gsub("(gl)", "(Gln->pyro-Glu)", `Modified sequence`, fixed = TRUE)) %>%
+               gsub("(gl)", "(Gln->pyro-Glu)", `Modified sequence`,
+                    fixed = TRUE)) %>%
       mutate(`Modified sequence` =
-               gsub("pS", "S(Phospho (STY))", `Modified sequence`, fixed = TRUE)) %>%
+               gsub("pS", "S(Phospho (STY))", `Modified sequence`,
+                    fixed = TRUE)) %>%
       mutate(`Modified sequence` =
-               gsub("pT", "T(Phospho (STY))", `Modified sequence`, fixed = TRUE)) %>%
+               gsub("pT", "T(Phospho (STY))", `Modified sequence`,
+                    fixed = TRUE)) %>%
       mutate(`Modified sequence` =
-               gsub("pY", "Y(Phospho (STY))", `Modified sequence`, fixed = TRUE))
+               gsub("pY", "Y(Phospho (STY))", `Modified sequence`,
+                    fixed = TRUE))
 
-    write.table(df, file.path(dat_dir, paste0(.x, ".txt")), sep = "\t", col.names = TRUE, row.names = FALSE)
+    write.table(df, file.path(dat_dir, paste0(.x, ".txt")),
+                sep = "\t", col.names = TRUE, row.names = FALSE)
   })
 
   purrr::walk(filelist, ~ {
@@ -323,20 +352,47 @@ foo_mascot_fullset <- function () {
 }
 
 
-#' MSFragger LFQ rda files
+#' MaxQuant LFQ rda files
 #'
-foo_msfragger_fullset <- function () {
+foo_maxquant_lfq <- function () {
   dat_dir <- "~/proteoQ/examples"
 
-  ## MSFragger
-  filelist <- c("psm_bi_1", "psm_bi_2", "psm_jhu_1", "psm_jhu_2", "psm_pnnl_1", "psm_pnnl_2")
+  filelist <- c("msms_lfq")
 
-  ## phospho
-  # filelist <- c("psm_bi_p1", "psm_bi_p2", "psm_jhu_p1", "psm_jhu_p2", "psm_pnnl_p1", "psm_pnnl_p2")
+  purrr::walk(filelist, ~ {
+    assign(.x, read.delim(file.path(dat_dir, paste0(.x, ".txt")), check.names = FALSE,
+                          header = TRUE, sep = "\t", comment.char = "#"))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
+  })
+}
+
+
+#' MSFragger LFQ rda files
+#'
+foo_msfragger_lfq <- function () {
+  dat_dir <- "~/proteoQ/examples"
+
+  filelist <- c("psm_lfq_bi_p1", "psm_lfq_bi_p2", "psm_lfq_jhu_p1",
+                "psm_lfq_jhu_p2", "psm_lfq_pnnl_p1", "psm_lfq_pnnl_p2")
 
   purrr::walk(filelist, ~ {
     assign(.x, read.delim(file.path(dat_dir, paste0(.x, ".tsv")), check.names = FALSE,
                           header = TRUE, sep = "\t", comment.char = "#"))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
+  })
+}
+
+
+#' Spectrum Mill LFQ rda files
+#'
+foo_sm_lfq <- function () {
+  dat_dir <- "~/proteoQ/examples"
+
+  filelist <- c("PSMexport_lfq_p")
+
+  purrr::walk(filelist, ~ {
+    assign(.x, read.delim(file.path(dat_dir, paste0(.x, ".ssv")), check.names = FALSE,
+                          header = TRUE, sep = ";", comment.char = "#"))
     save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
   })
 }
@@ -399,6 +455,10 @@ foo_msfragger_tmt_subset <- function () {
 }
 
 
+
+
+# ========== Mascot ==========
+
 #' Copy Mascot \code{.csv} files
 #'
 #' \code{copy_csv} copies the Mascot outputs of \code{.csv} files to a target
@@ -409,16 +469,15 @@ foo_msfragger_tmt_subset <- function () {
 #' @rawNamespace import(rlang, except = c(list_along, invoke, flatten_raw,
 #'   modify, as_function, flatten_dbl, flatten_lgl, flatten_int,
 #'   flatten_chr, splice, flatten, prepend, "%@%"))
-#' @param dat_dir A character string to the working directory. The default is to
-#'   match the value under the global environment.
+#' @param dat_dir A character string to the working directory.
 #' @param filelist A list of files
-copy_csv <- function(dat_dir, filelist) {
+copy_csv <- function(dat_dir, filelist, mapped = NULL) {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
   data(list = filelist, package = "proteoQDA", envir = environment())
 
   for (i in seq_along(filelist)) {
-    fileConn <- file(file.path(dat_dir, paste0(filelist[i], ".csv")))
+    fileConn <- file(file.path(dat_dir, paste0(filelist[i], mapped[i], ".csv")))
     df <- get(filelist[i])
 
     for (j in seq_along(df)) df[j] <- gsub("^\\s+", "", df[j])
@@ -429,23 +488,45 @@ copy_csv <- function(dat_dir, filelist) {
 }
 
 
-#' Copy Mascot global \code{.csv}
+#' Copy Mascot global TMT \code{.csv}
 #'
 #' @inheritParams copy_csv
 #' @export
-copy_global_mascot <- function(dat_dir) {
-	copy_csv(dat_dir, filelist = c("F003590", "F003591", "F003593", "F003594", "F003595", "F003597"))
+copy_mascot_gtmt <- function(dat_dir = "~/proteoQ/examples") {
+	copy_csv(dat_dir, filelist = c("F003590", "F003591",
+	                               "F003593", "F003594",
+	                               "F003595", "F003597"),
+	         mapped = c("_bi_1", "_bi_2", "_jhu_1",
+	                    "_jhu_2", "_pnnl_1", "_pnnl_2"))
 }
 
 
-#' Copy Mascot phospho \code{.csv}
+#' Copy Mascot phospho TMT \code{.csv}
 #'
 #' @inheritParams copy_csv
 #' @export
-copy_phospho_mascot <- function(dat_dir) {
-  copy_csv(dat_dir, filelist = c("F003598", "F003602", "F003603", "F003604", "F003605", "F003606"))
+copy_mascot_ptmt <- function(dat_dir = "~/proteoQ/examples") {
+  copy_csv(dat_dir, filelist = c("F003598", "F003602",
+                                 "F003603", "F003604",
+                                 "F003605", "F003606"),
+           mapped = c("_bi_p1", "_bi_p2", "_jhu_p1",
+                      "_jhu_p2", "_pnnl_p1", "_pnnl_p2"))
 }
 
+
+#' Copy Mascot phospho LFQ \code{.txt}
+#'
+#' @inheritParams copy_csv
+#' @export
+copy_mascot_plfq <- function(dat_dir = "~/proteoQ/examples") {
+  copy_csv(dat_dir, filelist = c("F003997_lfq_p"))
+}
+
+
+
+
+
+# ========== MaxQuant ==========
 
 #' Copy MaxQuant \code{.txt} files
 #'
@@ -465,31 +546,42 @@ copy_txt <- function(dat_dir, filelist) {
 }
 
 
-#' Copy MaxQuant global \code{.txt}
+#' Copy MaxQuant global TMT \code{.txt}
 #'
 #' @inheritParams copy_csv
 #' @export
-copy_global_maxquant <- function(dat_dir) {
-  copy_txt(dat_dir, filelist = c("msms_bi_1", "msms_jhu_1", "msms_pnnl_1", "msms_bi_2", "msms_jhu_2", "msms_pnnl_2"))
+copy_maxquant_gtmt <- function(dat_dir = "~/proteoQ/examples") {
+  copy_txt(dat_dir, filelist = c("msms_bi_1", "msms_jhu_1",
+                                 "msms_pnnl_1", "msms_bi_2",
+                                 "msms_jhu_2", "msms_pnnl_2"))
 }
 
-#' Copy MaxQuant phospho \code{.txt}
+
+#' Copy MaxQuant phospho TMT \code{.txt}
 #'
 #' @inheritParams copy_csv
 #' @export
-copy_phospho_maxquant <- function(dat_dir) {
-  copy_txt(dat_dir, filelist = c("msms_bi_p1", "msms_jhu_p1", "msms_pnnl_p1", "msms_bi_p2", "msms_jhu_p2", "msms_pnnl_p2"))
+copy_maxquant_ptmt <- function(dat_dir = "~/proteoQ/examples") {
+  copy_txt(dat_dir, filelist = c("msms_bi_p1", "msms_jhu_p1",
+                                 "msms_pnnl_p1", "msms_bi_p2",
+                                 "msms_jhu_p2", "msms_pnnl_p2"))
 }
 
-#' Copy MaxQuant LFQ global \code{.txt}
+
+#' Copy MaxQuant phospho LFQ \code{.txt}
 #'
 #' @inheritParams copy_csv
 #' @export
-copy_global_maxquant_lfq <- function(dat_dir) {
-  copy_txt(dat_dir, filelist = c("msms", "peptides"))
+copy_maxquant_plfq <- function(dat_dir = "~/proteoQ/examples") {
+  copy_txt(dat_dir, filelist = c("msms_lfq_p"))
 }
 
 
+
+
+
+
+# ========== Spectrum Mill ==========
 
 #' Copy Spectrum Mill \code{.ssv} files
 #'
@@ -509,24 +601,41 @@ copy_ssv <- function(dat_dir, filelist) {
 }
 
 
-#' Copy Spectrum Mill global \code{.ssv}
+#' Copy Spectrum Mill global TMT \code{.ssv}
 #'
 #' @inheritParams copy_csv
 #' @export
-copy_global_sm <- function(dat_dir) {
-  copy_ssv(dat_dir, filelist = c("PSMexport_bi_1", "PSMexport_bi_2", "PSMexport_jhu_1",
-                                 "PSMexport_jhu_2", "PSMexport_pnnl_1", "PSMexport_pnnl_2"))
+copy_specmill_gtmt <- function(dat_dir = "~/proteoQ/examples") {
+  copy_ssv(dat_dir, filelist = c("PSMexport_bi_1", "PSMexport_bi_2",
+                                 "PSMexport_jhu_1", "PSMexport_jhu_2",
+                                 "PSMexport_pnnl_1", "PSMexport_pnnl_2"))
 }
 
-#' Copy Spectrum Mill phospho \code{.ssv}
+
+#' Copy Spectrum Mill phospho TMT \code{.ssv}
 #'
 #' @inheritParams copy_csv
 #' @export
-copy_phospho_sm <- function(dat_dir) {
-  copy_ssv(dat_dir, filelist = c("PSMexport_bi_p1", "PSMexport_bi_p2", "PSMexport_jhu_p1",
-                                 "PSMexport_jhu_p2", "PSMexport_pnnl_p1", "PSMexport_pnnl_p2"))
+copy_specmill_ptmt <- function(dat_dir = "~/proteoQ/examples") {
+  copy_ssv(dat_dir, filelist = c("PSMexport_bi_p1", "PSMexport_bi_p2",
+                                 "PSMexport_jhu_p1", "PSMexport_jhu_p2",
+                                 "PSMexport_pnnl_p1", "PSMexport_pnnl_p2"))
 }
 
+
+#' Copy Spectrum Mill phospho LFQ \code{.ssv}
+#'
+#' @inheritParams copy_csv
+#' @export
+copy_specmill_plfq <- function(dat_dir = "~/proteoQ/examples") {
+  copy_ssv(dat_dir, filelist = c("PSMexport_lfq_p"))
+}
+
+
+
+
+
+# ========== MSFragger ==========
 
 #' Copy MSFragger \code{.tsv} files
 #'
@@ -546,26 +655,31 @@ copy_tsv <- function(dat_dir, filelist) {
 }
 
 
-#' Copy MSFragger TMT global \code{.tsv}
+#' Copy MSFragger global TMT \code{.tsv}
 #'
 #' @inheritParams copy_csv
 #' @export
-copy_global_ms <- function(dat_dir) {
-  copy_tsv(dat_dir, filelist = c("psm_tmt_bi_1", "psm_tmt_bi_2", "psm_tmt_jhu_1",
-                                 "psm_tmt_jhu_2", "psm_tmt_pnnl_1", "psm_tmt_pnnl_2"))
+copy_msfragger_gtmt <- function(dat_dir = "~/proteoQ/examples") {
+  copy_tsv(dat_dir, filelist = c("psm_tmt_bi_1", "psm_tmt_bi_2",
+                                 "psm_tmt_jhu_1", "psm_tmt_jhu_2",
+                                 "psm_tmt_pnnl_1", "psm_tmt_pnnl_2"))
 }
 
-#' Copy MSFragger LFQ global \code{.tsv}
+
+#' Copy MSFragger phospho LFQ \code{.tsv}
 #'
 #' @inheritParams copy_csv
 #' @export
-copy_global_msfragger_lfq <- function(dat_dir) {
-  copy_tsv(dat_dir, filelist = c("psm_bi_1", "psm_bi_2", "psm_jhu_1",
-                                 "psm_jhu_2", "psm_pnnl_1", "psm_pnnl_2"))
+copy_msfragger_plfq <- function(dat_dir = "~/proteoQ/examples") {
+  copy_tsv(dat_dir, filelist = c("psm_lfq_bi_p1", "psm_lfq_bi_p2",
+                                 "psm_lfq_jhu_p1", "psm_lfq_jhu_p2",
+                                 "psm_lfq_pnnl_p1", "psm_lfq_pnnl_p2"))
 }
 
 
 
+
+# ========== Metadata Files ==========
 
 #' Copy an \code{expt_smry[...].xlsx} file to \code{dat_dir}
 #'
@@ -597,39 +711,39 @@ copy_frac <- function(dat_dir, from = "frac_smry.xlsx", to = "frac_smry.xlsx") {
 #'
 #' @inheritParams copy_expt
 #' @export
-copy_global_exptsmry <- function(dat_dir) {
-  copy_expt(dat_dir, "expt_smry_cptac_gl.xlsx", "expt_smry.xlsx")
+copy_exptsmry_gtmt <- function(dat_dir = "~/proteoQ/examples") {
+  copy_expt(dat_dir, "expt_smry_gtmt.xlsx", "expt_smry.xlsx")
 }
 
 #' Copy a metadata file \code{frac_smry.xlsx} to \code{dat_dir}
 #'
 #' @inheritParams copy_expt
 #' @export
-copy_global_fracsmry <- function(dat_dir) {
-  copy_frac(dat_dir, "frac_smry_cptac_gl.xlsx", "frac_smry.xlsx")
+copy_fracsmry_gtmt <- function(dat_dir = "~/proteoQ/examples") {
+  copy_frac(dat_dir, "frac_smry_gtmt.xlsx", "frac_smry.xlsx")
 }
 
 #' Copy a metadata file \code{expt_smry.xlsx} file to \code{dat_dir}
 #'
 #' @inheritParams copy_expt
 #' @export
-copy_cmbn_exptsmry <- function(dat_dir) {
-  copy_expt(dat_dir, "expt_smry_cptac_cmbn.xlsx", "expt_smry.xlsx")
+copy_exptsmry_cmbn <- function(dat_dir = "~/proteoQ/examples") {
+  copy_expt(dat_dir, "expt_smry_tmt_cmbn.xlsx", "expt_smry.xlsx")
 }
 
 #' Copy a metadata file \code{frac_smry.xlsx} to \code{dat_dir}
 #'
 #' @inheritParams copy_expt
 #' @export
-copy_cmbn_fracsmry <- function(dat_dir) {
-  copy_frac(dat_dir, "frac_smry_cptac_cmbn.xlsx", "frac_smry.xlsx")
+copy_fracsmry_cmbn <- function(dat_dir = "~/proteoQ/examples") {
+  copy_frac(dat_dir, "frac_smry_tmt_cmbn.xlsx", "frac_smry.xlsx")
 }
 
 #' Copy a metadata file \code{expt_smry.xlsx} to \code{dat_dir}
 #'
 #' @inheritParams copy_expt
 #' @export
-copy_w2ref_exptsmry <- function(dat_dir) {
+copy_exptsmry_w2ref <- function(dat_dir = "~/proteoQ/examples") {
   copy_expt(dat_dir, "expt_smry_ref_w2.xlsx", "expt_smry_ref_w2.xlsx")
 }
 
@@ -638,7 +752,7 @@ copy_w2ref_exptsmry <- function(dat_dir) {
 #'
 #' @inheritParams copy_expt
 #' @export
-copy_w2w16ref_exptsmry <- function(dat_dir) {
+copy_exptsmry_w2w16ref <- function(dat_dir = "~/proteoQ/examples") {
   copy_expt(dat_dir, "expt_smry_ref_w2_w16.xlsx", "expt_smry_ref_w2_w16.xlsx")
 }
 
@@ -646,30 +760,36 @@ copy_w2w16ref_exptsmry <- function(dat_dir) {
 #'
 #' @inheritParams copy_expt
 #' @export
-copy_global_exptsmry_lfq <- function(dat_dir) {
-  copy_expt(dat_dir, "expt_smry_lfq.xlsx", "expt_smry.xlsx")
+copy_exptsmry_plfq <- function(dat_dir = "~/proteoQ/examples") {
+  copy_expt(dat_dir, "expt_smry_plfq.xlsx", "expt_smry.xlsx")
 }
 
 #' Copy a metadata file \code{frac_smry.xlsx} to \code{dat_dir}
 #'
 #' @inheritParams copy_expt
 #' @export
-copy_global_fracsmry_lfq <- function(dat_dir) {
-  copy_frac(dat_dir, "frac_smry_lfq.xlsx", "frac_smry.xlsx")
+copy_fracsmry_plfq <- function(dat_dir = "~/proteoQ/examples") {
+  copy_frac(dat_dir, "frac_smry_plfq.xlsx", "frac_smry.xlsx")
 }
 
 
 
+
+
+
+# ========== FASTA ==========
 
 #' Save \code{fasta} files to \code{.rda}
 #'
 #' @inheritParams copy_fasta
 #' @inheritParams copy_expt
 #' @examples \donttest{
-#' foo_fasta_rda("~\\proteoQ\\dbs\\fasta\\uniprot", "uniprot_hs_2014_07.fasta")
+#' foo_fasta_rda("~\\proteoQ\\dbs\\fasta\\uniprot", "uniprot_hsmm_2020_03.fasta")
 #' foo_fasta_rda("~\\proteoQ\\dbs\\fasta\\refseq", "refseq_hs_2013_07.fasta")
+#' foo_fasta_rda("~\\proteoQ\\dbs\\fasta\\refseq", "refseq_mm_2013_07.fasta")
 #' }
-foo_fasta_rda <- function(db_path = "~\\proteoQ\\dbs\\fasta\\refseq", from = "refseq_hs_2013_07.fasta") {
+foo_fasta_rda <- function(db_path = "~/proteoQ/dbs/fasta/refseq",
+                          from = "refseq_hs_2013_07.fasta") {
   filepath <- file.path(db_path, from)
   nm <- gsub("\\.fasta", "", from)
   suppressWarnings(assign(nm, readLines(filepath)))
@@ -682,9 +802,10 @@ foo_fasta_rda <- function(db_path = "~\\proteoQ\\dbs\\fasta\\refseq", from = "re
 #' \code{copy_fasta} copies \code{fasta} files to a target directory.
 #' @param db_path Character string; the local path for database(s).
 #' @param file Character string; the file name of a target \code{.rda}.
-copy_fasta <- function(db_path = "~\\proteoQ\\dbs\\fasta\\uniprot",
-                       file = "uniprot_hs_2014_07.rda") {
+copy_fasta <- function(db_path = "~/proteoQ/dbs/fasta/uniprot",
+                       file = "uniprot_hsmm_2020_03.rda") {
   dir.create(file.path(db_path), recursive = TRUE, showWarnings = FALSE)
+
   filepath <- system.file("extdata", file, package = "proteoQDA")
   load(filepath)
   out_nm <- gsub("\\.rda", "", file)
@@ -692,21 +813,12 @@ copy_fasta <- function(db_path = "~\\proteoQ\\dbs\\fasta\\uniprot",
 }
 
 
-#' Copy \code{uniprot_hs_2014_07.fasta} to \code{db_path}
+#' Copy \code{uniprot_hsmm_2020_03.fasta} to \code{db_path}
 #'
 #' @inheritParams copy_fasta
 #' @export
-copy_uniprot_hs <- function(db_path = "~\\proteoQ\\dbs\\fasta\\uniprot") {
-  copy_fasta(db_path, "uniprot_hs_2014_07.rda")
-}
-
-
-#' Copy \code{uniprot_hs_2014_07.fasta} to \code{db_path}
-#'
-#' @inheritParams copy_fasta
-#' @export
-copy_uniprot_mm <- function(db_path = "~\\proteoQ\\dbs\\fasta\\uniprot") {
-  copy_fasta(db_path, "uniprot_mm_2014_07.rda")
+copy_uniprot_hsmm <- function(db_path = "~\\proteoQ\\dbs\\fasta\\uniprot") {
+  copy_fasta(db_path, "uniprot_hsmm_2020_03.rda")
 }
 
 
@@ -726,6 +838,16 @@ copy_refseq_hs <- function(db_path = "~\\proteoQ\\dbs\\fasta\\refseq") {
 copy_refseq_mm <- function(db_path = "~\\proteoQ\\dbs\\fasta\\refseq") {
   copy_fasta(db_path, "refseq_mm_2013_07.rda")
 }
+
+
+#' Copy \code{crpa.fasta} to \code{db_path}
+#'
+#' @inheritParams copy_fasta
+#' @export
+copy_crap <- function(db_path = "~\\proteoQ\\dbs\\fasta\\crap") {
+  copy_fasta(db_path, "crap.rda")
+}
+
 
 
 

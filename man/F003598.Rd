@@ -3,7 +3,9 @@
 \docType{data}
 \name{F003598}
 \alias{F003598}
-\title{CPTAC phosphopeptide data}
+\title{Mascot phosphopeptide TMT
+A \code{Mascot} PSM table from the \code{BI_1} dataset. The PSM entries were
+sampled at 10% from the full list.}
 \format{
 A PSM table with header at a length of 12761
 }
@@ -11,6 +13,7 @@ A PSM table with header at a length of 12761
 F003598
 }
 \description{
+Mascot phosphopeptide TMT
 A \code{Mascot} PSM table from the \code{BI_1} dataset. The PSM entries were
 sampled at 10% from the full list.
 }

@@ -3,7 +3,7 @@
 \docType{data}
 \name{F003606}
 \alias{F003606}
-\title{CPTAC phosphopeptide data}
+\title{Mascot phosphopeptide TMT}
 \format{
 A PSM table with header at a length of 11193
 }

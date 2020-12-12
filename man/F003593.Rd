@@ -3,7 +3,7 @@
 \docType{data}
 \name{F003593}
 \alias{F003593}
-\title{CPTAC global data}
+\title{Mascot global TMT}
 \format{
 A PSM table with header at a length of 37240
 }

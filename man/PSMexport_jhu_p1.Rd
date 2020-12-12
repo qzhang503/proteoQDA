@@ -3,7 +3,7 @@
 \docType{data}
 \name{PSMexport_jhu_p1}
 \alias{PSMexport_jhu_p1}
-\title{CPTAC phosphopeptide data}
+\title{SM phosphopeptide TMT}
 \format{
 A PSM table with header at a length of 6633
 }

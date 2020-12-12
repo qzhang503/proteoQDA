@@ -7,8 +7,7 @@
 copy_frac(dat_dir, from = "frac_smry.xlsx", to = "frac_smry.xlsx")
 }
 \arguments{
-\item{dat_dir}{A character string to the working directory. The default is to
-match the value under the global environment.}
+\item{dat_dir}{A character string to the working directory.}
 
 \item{from}{The source \code{.xlsx} file name.}
 

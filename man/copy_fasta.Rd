@@ -5,8 +5,8 @@
 \title{Copy \code{fasta} files}
 \usage{
 copy_fasta(
-  db_path = "~\\\\proteoQ\\\\dbs\\\\fasta\\\\uniprot",
-  file = "uniprot_hs_2014_07.rda"
+  db_path = "~/proteoQ/dbs/fasta/uniprot",
+  file = "uniprot_hsmm_2020_03.rda"
 )
 }
 \arguments{

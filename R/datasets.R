@@ -1,4 +1,7 @@
-#' CPTAC global data
+
+# ========== Mascot ==========
+
+#' Mascot global TMT
 #'
 #' A \code{Mascot} PSM table from the \code{BI_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -7,7 +10,7 @@
 "F003590"
 
 
-#' CPTAC global data
+#' Mascot global TMT
 #'
 #' A \code{Mascot} PSM table from the \code{BI_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -16,7 +19,7 @@
 "F003591"
 
 
-#' CPTAC global data
+#' Mascot global TMT
 #'
 #' A \code{Mascot} PSM table from the \code{JHU_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -25,7 +28,7 @@
 "F003593"
 
 
-#' CPTAC global data
+#' Mascot global TMT
 #'
 #' A \code{Mascot} PSM table from the \code{JHU_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -34,7 +37,7 @@
 "F003594"
 
 
-#' CPTAC global data
+#' Mascot global TMT
 #'
 #' A \code{Mascot} PSM table from the \code{PNNL_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -43,7 +46,7 @@
 "F003595"
 
 
-#' CPTAC global data
+#' Mascot global TMT
 #'
 #' A \code{Mascot} PSM table from the \code{PNNL_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -52,9 +55,7 @@
 "F003597"
 
 
-
-#' CPTAC phosphopeptide data
-#'
+#' Mascot phosphopeptide TMT
 #' A \code{Mascot} PSM table from the \code{BI_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
 #'
@@ -62,7 +63,7 @@
 "F003598"
 
 
-#' CPTAC phosphopeptide data
+#' Mascot phosphopeptide TMT
 #'
 #' A \code{Mascot} PSM table from the \code{BI_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -71,7 +72,7 @@
 "F003602"
 
 
-#' CPTAC phosphopeptide data
+#' Mascot phosphopeptide TMT
 #'
 #' A \code{Mascot} PSM table from the \code{JHU_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -80,7 +81,7 @@
 "F003603"
 
 
-#' CPTAC phosphopeptide data
+#' Mascot phosphopeptide TMT
 #'
 #' A \code{Mascot} PSM table from the \code{JHU_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -89,7 +90,7 @@
 "F003604"
 
 
-#' CPTAC phosphopeptide data
+#' Mascot phosphopeptide TMT
 #'
 #' A \code{Mascot} PSM table from the \code{PNNL_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -98,7 +99,7 @@
 "F003605"
 
 
-#' CPTAC phosphopeptide data
+#' Mascot phosphopeptide TMT
 #'
 #' A \code{Mascot} PSM table from the \code{PNNL_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -107,8 +108,25 @@
 "F003606"
 
 
+# (2) LFQ
 
-#' CPTAC global data
+#' Mascot IMAC data (LFQ)
+#'
+#' A \code{Mascot} LFQ PSM table from the 5th and 10th fractions of
+#' \code{BI_1, BI_2, JHU_1, JHU_2, PNNL_1, PNN_2} IMAC. The data were searched
+#' against a "UniProt Hu and Mm" database.
+#'
+#' @format A PSM table at a length of 1297758
+"F003997_lfq_p"
+
+
+
+
+
+
+# ========== MaxQuant ==========
+
+#' MaxQuant global TMT
 #'
 #' A \code{MaxQuant} PSM table from the \code{BI_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -117,7 +135,7 @@
 "msms_bi_1"
 
 
-#' CPTAC global data
+#' MaxQuant global TMT
 #'
 #' A \code{MaxQuant} PSM table from the \code{BI_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -126,7 +144,7 @@
 "msms_bi_2"
 
 
-#' CPTAC global data
+#' MaxQuant global TMT
 #'
 #' A \code{MaxQuant} PSM table from the \code{JHU_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -135,7 +153,7 @@
 "msms_jhu_1"
 
 
-#' CPTAC global data
+#' MaxQuant global TMT
 #'
 #' A \code{MaxQuant} PSM table from the \code{JHU_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -144,7 +162,7 @@
 "msms_jhu_2"
 
 
-#' CPTAC global data
+#' MaxQuant global TMT
 #'
 #' A \code{MaxQuant} PSM table from the \code{PNNL_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -153,7 +171,7 @@
 "msms_pnnl_1"
 
 
-#' CPTAC global data
+#' MaxQuant global TMT
 #'
 #' A \code{MaxQuant} PSM table from the \code{PNNL_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -162,8 +180,7 @@
 "msms_pnnl_2"
 
 
-
-#' CPTAC phosphopeptide data
+#' MaxQuant phosphopeptide TMT
 #'
 #' A \code{MaxQuant} PSM table from the \code{BI_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -172,7 +189,7 @@
 "msms_bi_p1"
 
 
-#' CPTAC phosphopeptide data
+#' MaxQuant phosphopeptide TMT
 #'
 #' A \code{MaxQuant} PSM table from the \code{BI_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -181,7 +198,7 @@
 "msms_bi_p2"
 
 
-#' CPTAC phosphopeptide data
+#' MaxQuant phosphopeptide TMT
 #'
 #' A \code{MaxQuant} PSM table from the \code{JHU_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -190,7 +207,7 @@
 "msms_jhu_p1"
 
 
-#' CPTAC phosphopeptide data
+#' MaxQuant phosphopeptide TMT
 #'
 #' A \code{MaxQuant} PSM table from the \code{JHU_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -199,7 +216,7 @@
 "msms_jhu_p2"
 
 
-#' CPTAC phosphopeptide data
+#' MaxQuant phosphopeptide TMT
 #'
 #' A \code{MaxQuant} PSM table from the \code{PNNL_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -208,7 +225,7 @@
 "msms_pnnl_p1"
 
 
-#' CPTAC phosphopeptide data
+#' MaxQuant phosphopeptide TMT
 #'
 #' A \code{MaxQuant} PSM table from the \code{PNNL_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -217,8 +234,24 @@
 "msms_pnnl_p2"
 
 
+# (2) LFQ
 
-#' CPTAC global data
+#' MaxQuant IMAC data (LFQ)
+#'
+#' A \code{MaxQuant} LFQ PSM table from the 5th and 10th fractions of
+#' \code{BI_1, BI_2, JHU_1, JHU_2, PNNL_1, PNN_2} IMAC. The data were searched
+#' against a "UniProt Hu and Mm" database. Some columns were excluded to reduce
+#' the size of the file.
+#'
+#' @format A PSM table at a length of 90608
+"msms_lfq_p"
+
+
+
+
+# ========== Spectrum Mill ==========
+
+#' SM global TMT
 #'
 #' A \code{Spectrum Mill} PSM table from the \code{BI_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -227,7 +260,7 @@
 "PSMexport_bi_1"
 
 
-#' CPTAC global data
+#' SM global TMT
 #'
 #' A \code{Spectrum Mill} PSM table from the \code{BI_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -236,7 +269,7 @@
 "PSMexport_bi_2"
 
 
-#' CPTAC global data
+#' SM global TMT
 #'
 #' A \code{Spectrum Mill} PSM table from the \code{JHU_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -245,7 +278,7 @@
 "PSMexport_jhu_1"
 
 
-#' CPTAC global data
+#' SM global TMT
 #'
 #' A \code{Spectrum Mill} PSM table from the \code{JHU_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -254,7 +287,7 @@
 "PSMexport_jhu_2"
 
 
-#' CPTAC global data
+#' SM global TMT
 #'
 #' A \code{Spectrum Mill} PSM table from the \code{PNNL_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -263,7 +296,7 @@
 "PSMexport_pnnl_1"
 
 
-#' CPTAC global data
+#' SM global TMT
 #'
 #' A \code{Spectrum Mill} PSM table from the \code{PNNL_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -271,118 +304,7 @@
 #' @format A PSM table with header at a length of 28999
 "PSMexport_pnnl_2"
 
-
-#' CPTAC global data
-#'
-#' A \code{MSFragger} LFQ PSM table from the \code{BI_1} dataset. The PSM entries were
-#' from offline fractions 10 and 15.
-#'
-#' @format A PSM table of 31480 rows and 32 columns
-"psm_bi_1"
-
-
-#' CPTAC global data
-#'
-#' A \code{MSFragger} LFQ PSM table from the \code{BI_2} dataset. The PSM entries were
-#' from offline fractions 10 and 15.
-#'
-#' @format A PSM table of 30352 rows and 32 columns
-"psm_bi_2"
-
-
-#' CPTAC global data
-#'
-#' A \code{MSFragger} LFQ PSM table from the \code{JHU_1} dataset. The PSM entries were
-#' from offline fractions 10 and 15.
-#'
-#' @format A PSM table of 30059 rows and 32 columns
-"psm_jhu_1"
-
-
-#' CPTAC global data
-#'
-#' A \code{MSFragger} LFQ PSM table from the \code{JHU_2} dataset. The PSM entries were
-#' from offline fractions 10 and 15.
-#'
-#' @format A PSM table of 31262 rows and 32 columns
-"psm_jhu_2"
-
-
-#' CPTAC global data
-#'
-#' A \code{MSFragger} LFQ PSM table from the \code{PNNL_1} dataset. The PSM entries were
-#' from offline fractions 10 and 15.
-#'
-#' @format A PSM table of 32781 rows and 32 columns
-"psm_pnnl_1"
-
-
-#' CPTAC global data
-#'
-#' A \code{MSFragger} LFQ PSM table from the \code{PNNL_2} dataset. The PSM entries were
-#' from offline fractions 10 and 15.
-#'
-#' @format A PSM table of 33991 rows and 32 columns
-"psm_pnnl_2"
-
-
-
-#' CPTAC global data
-#'
-#' A \code{MSFragger} TMT PSM table from the \code{BI_1} dataset. The PSM entries were
-#' sampled at 10% from the full list.
-#'
-#' @format A PSM table of 36843 rows and 44 columns
-"psm_tmt_bi_1"
-
-
-#' CPTAC global data
-#'
-#' A \code{MSFragger} TMT PSM table from the \code{BI_2} dataset. The PSM entries were
-#' from offline fractions 10 and 15.
-#'
-#' @format A PSM table of 35854 rows and 44 columns
-"psm_tmt_bi_2"
-
-
-#' CPTAC global data
-#'
-#' A \code{MSFragger} TMT PSM table from the \code{JHU_1} dataset. The PSM entries were
-#' sampled at 10% from the full list.
-#'
-#' @format A PSM table of 35657 rows and 44 columns
-"psm_tmt_jhu_1"
-
-
-#' CPTAC global data
-#'
-#' A \code{MSFragger} TMT PSM table from the \code{JHU_2} dataset. The PSM entries were
-#' sampled at 10% from the full list.
-#'
-#' @format A PSM table of 36680 rows and 44 columns
-"psm_tmt_jhu_2"
-
-
-#' CPTAC global data
-#'
-#' A \code{MSFragger} TMT PSM table from the \code{PNNL_1} dataset. The PSM entries were
-#' sampled at 10% from the full list.
-#'
-#' @format A PSM table of 39244 rows and 44 columns
-"psm_tmt_pnnl_1"
-
-
-#' CPTAC global data
-#'
-#' A \code{MSFragger} TMT PSM table from the \code{PNNL_2} dataset. The PSM entries were
-#' sampled at 10% from the full list.
-#'
-#' @format A PSM table of 40018 rows and 44 columns
-"psm_tmt_pnnl_2"
-
-
-
-#' CPTAC phosphopeptide data
+#' SM phosphopeptide TMT
 #'
 #' A \code{Spectrum Mill} PSM table from the \code{BI_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -391,7 +313,7 @@
 "PSMexport_bi_p1"
 
 
-#' CPTAC phosphopeptide data
+#' SM phosphopeptide TMT
 #'
 #' A \code{Spectrum Mill} PSM table from the \code{BI_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -400,7 +322,7 @@
 "PSMexport_bi_p2"
 
 
-#' CPTAC phosphopeptide data
+#' SM phosphopeptide TMT
 #'
 #' A \code{Spectrum Mill} PSM table from the \code{JHU_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -409,7 +331,7 @@
 "PSMexport_jhu_p1"
 
 
-#' CPTAC phosphopeptide data
+#' SM phosphopeptide TMT
 #'
 #' A \code{Spectrum Mill} PSM table from the \code{JHU_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -418,7 +340,7 @@
 "PSMexport_jhu_p2"
 
 
-#' CPTAC phosphopeptide data
+#' SM phosphopeptide TMT
 #'
 #' A \code{Spectrum Mill} PSM table from the \code{PNNL_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -427,7 +349,7 @@
 "PSMexport_pnnl_p1"
 
 
-#' CPTAC phosphopeptide data
+#' SM phosphopeptide TMT
 #'
 #' A \code{Spectrum Mill} PSM table from the \code{PNNL_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
@@ -436,30 +358,144 @@
 "PSMexport_pnnl_p2"
 
 
+# (2) LFQ
 
-
-
-
-
-#' CPTAC global data
+#' Spectrum Mill IMAC data (LFQ)
 #'
-#' A \code{Mascot} PSM table from the 5th and 15th fractions of \code{BI_1,
-#' BI_2, JHU_1, JHU_2, PNNL_1, PNN_2} data. The data were searched against a
-#' "Refseq Hu and Mm" database.
+#' A \code{Spectrum Mill} LFQ PSM table from the 5th and 10th fractions of
+#' \code{BI_1, BI_2, JHU_1, JHU_2, PNNL_1, PNN_2} IMAC. The data were searched
+#' against a "UniProt Hu and Mm" database.
 #'
-#' @format A PSM table with header at a length of 188204
-"F003795"
+#' @format A PSM table at a length of 77104
+"PSMexport_lfq_p"
 
 
-#' CPTAC global data
-#'
-#' A \code{Mascot} PSM table from the 5th and 15th fractions of \code{BI_1,
-#' BI_2, JHU_1, JHU_2, PNNL_1, PNN_2} data. The data were searched against a
-#' "Refseq Hu only" database.
-#'
-#' @format A PSM table with header at a length of 137479
-"F003797"
 
+
+
+
+
+
+# ========== MSFragger ==========
+
+# (1) Global TMT
+
+#' MSFragger global TMT
+#'
+#' A \code{MSFragger} TMT PSM table from the \code{BI_1} dataset. The PSM entries were
+#' sampled at 10% from the full list.
+#'
+#' @format A PSM table of 36843 rows and 44 columns
+"psm_tmt_bi_1"
+
+
+#' MSFragger global TMT
+#'
+#' A \code{MSFragger} TMT PSM table from the \code{BI_2} dataset. The PSM entries were
+#' from offline fractions 10 and 15.
+#'
+#' @format A PSM table of 35854 rows and 44 columns
+"psm_tmt_bi_2"
+
+
+#' MSFragger global TMT
+#'
+#' A \code{MSFragger} TMT PSM table from the \code{JHU_1} dataset. The PSM entries were
+#' sampled at 10% from the full list.
+#'
+#' @format A PSM table of 35657 rows and 44 columns
+"psm_tmt_jhu_1"
+
+
+#' MSFragger global TMT
+#'
+#' A \code{MSFragger} TMT PSM table from the \code{JHU_2} dataset. The PSM entries were
+#' sampled at 10% from the full list.
+#'
+#' @format A PSM table of 36680 rows and 44 columns
+"psm_tmt_jhu_2"
+
+
+#' MSFragger global TMT
+#'
+#' A \code{MSFragger} TMT PSM table from the \code{PNNL_1} dataset. The PSM entries were
+#' sampled at 10% from the full list.
+#'
+#' @format A PSM table of 39244 rows and 44 columns
+"psm_tmt_pnnl_1"
+
+
+#' MSFragger global TMT
+#'
+#' A \code{MSFragger} TMT PSM table from the \code{PNNL_2} dataset. The PSM entries were
+#' sampled at 10% from the full list.
+#'
+#' @format A PSM table of 40018 rows and 44 columns
+"psm_tmt_pnnl_2"
+
+
+# (2) LFQ
+
+#' MSFragger IMAC data (LFQ)
+#'
+#' A \code{MSFragger} LFQ PSM table from the \code{BI_1} dataset. The PSM entries were
+#' from offline fractions 5 and 10 and searched against UniProt.
+#'
+#' @format A PSM table of 24403 rows and 32 columns
+"psm_lfq_bi_p1"
+
+
+#' MSFragger IMAC data (LFQ)
+#'
+#' A \code{MSFragger} LFQ PSM table from the \code{BI_2} dataset. The PSM entries were
+#' from offline fractions 5 and 10 and searched against UniProt.
+#'
+#' @format A PSM table of 22423 rows and 32 columns
+"psm_lfq_bi_p2"
+
+
+#' MSFragger IMAC data (LFQ)
+#'
+#' A \code{MSFragger} LFQ PSM table from the \code{JHU_1} dataset. The PSM entries were
+#' from offline fractions 5 and 10 and searched against UniProt.
+#'
+#' @format A PSM table of 17242 rows and 32 columns
+"psm_lfq_jhu_p1"
+
+
+#' MSFragger IMAC data (LFQ)
+#'
+#' A \code{MSFragger} LFQ PSM table from the \code{JHU_2} dataset. The PSM entries were
+#' from offline fractions 5 and 10 and searched against UniProt.
+#'
+#' @format A PSM table of 21984 rows and 32 columns
+"psm_lfq_jhu_p2"
+
+
+#' MSFragger IMAC data (LFQ)
+#'
+#' A \code{MSFragger} LFQ PSM table from the \code{PNNL_1} dataset. The PSM entries were
+#' from offline fractions 5 and 10 and searched against UniProt.
+#'
+#' @format A PSM table of 26944 rows and 32 columns
+"psm_lfq_pnnl_p1"
+
+
+#' MSFragger IMAC data (LFQ)
+#'
+#' A \code{MSFragger} LFQ PSM table from the \code{PNNL_2} dataset. The PSM entries were
+#' from offline fractions 5 and 10 and searched against UniProt.
+#'
+#' @format A PSM table of 24197 rows and 32 columns
+"psm_lfq_pnnl_p2"
+
+
+
+
+
+
+
+# ========== Others ==========
 
 #' UniProt subcellular locations
 #'
@@ -486,23 +522,4 @@
 #'   length of 139561
 "scc_rn"
 
-
-
-#' CPTAC LFQ data from MaxQuant
-#'
-#' A \code{MaxQuant} LFQ PSM table from the 10th and 15th fractions of
-#' \code{BI_1, BI_2, JHU_1, JHU_2, PNNL_1, PNN_2} data. The data were searched
-#' against a "Refseq Hu and Mm" database. Some columns were excluded to reduce
-#' the size of the file.
-#'
-#' @format A PSM table at a length of 139561.
-"msms"
-
-
-#' CPTAC LFQ data from MaxQuant
-#'
-#' A \code{MaxQuant} LFQ peptide table corresponding to data set "msms_lfq".
-#'
-#' @format A peptide table at a length of 57517.
-"peptides"
 

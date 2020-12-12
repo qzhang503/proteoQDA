@@ -3,7 +3,7 @@
 \docType{data}
 \name{PSMexport_pnnl_2}
 \alias{PSMexport_pnnl_2}
-\title{CPTAC global data}
+\title{SM global TMT}
 \format{
 A PSM table with header at a length of 28999
 }

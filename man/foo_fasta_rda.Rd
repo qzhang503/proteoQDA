@@ -5,7 +5,7 @@
 \title{Save \code{fasta} files to \code{.rda}}
 \usage{
 foo_fasta_rda(
-  db_path = "~\\\\proteoQ\\\\dbs\\\\fasta\\\\refseq",
+  db_path = "~/proteoQ/dbs/fasta/refseq",
   from = "refseq_hs_2013_07.fasta"
 )
 }
@@ -19,7 +19,8 @@ Save \code{fasta} files to \code{.rda}
 }
 \examples{
 \donttest{
-foo_fasta_rda("~\\\\proteoQ\\\\dbs\\\\fasta\\\\uniprot", "uniprot_hs_2014_07.fasta")
+foo_fasta_rda("~\\\\proteoQ\\\\dbs\\\\fasta\\\\uniprot", "uniprot_hsmm_2020_03.fasta")
 foo_fasta_rda("~\\\\proteoQ\\\\dbs\\\\fasta\\\\refseq", "refseq_hs_2013_07.fasta")
+foo_fasta_rda("~\\\\proteoQ\\\\dbs\\\\fasta\\\\refseq", "refseq_mm_2013_07.fasta")
 }
 }

@@ -3,7 +3,7 @@
 \docType{data}
 \name{psm_tmt_pnnl_2}
 \alias{psm_tmt_pnnl_2}
-\title{CPTAC global data}
+\title{MSFragger global TMT}
 \format{
 A PSM table of 40018 rows and 44 columns
 }

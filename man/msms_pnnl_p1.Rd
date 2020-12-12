@@ -3,7 +3,7 @@
 \docType{data}
 \name{msms_pnnl_p1}
 \alias{msms_pnnl_p1}
-\title{CPTAC phosphopeptide data}
+\title{MaxQuant phosphopeptide TMT}
 \format{
 A PSM table with header at a length of 11117
 }

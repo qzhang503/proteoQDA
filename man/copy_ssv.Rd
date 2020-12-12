@@ -7,8 +7,7 @@
 copy_ssv(dat_dir, filelist)
 }
 \arguments{
-\item{dat_dir}{A character string to the working directory. The default is to
-match the value under the global environment.}
+\item{dat_dir}{A character string to the working directory.}
 
 \item{filelist}{A list of files}
 }
