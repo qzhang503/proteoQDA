@@ -9,7 +9,7 @@ copy_tsv(dat_dir, filelist)
 \arguments{
 \item{dat_dir}{A character string to the working directory.}
 
-\item{filelist}{A list of files}
+\item{filelist}{A list of files.}
 }
 \description{
 \code{copy_tsv} copies the MSFragger \code{psm.tsv} files to a target

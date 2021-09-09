@@ -9,7 +9,9 @@ copy_csv(dat_dir, filelist, mapped = NULL)
 \arguments{
 \item{dat_dir}{A character string to the working directory.}
 
-\item{filelist}{A list of files}
+\item{filelist}{A list of files.}
+
+\item{mapped}{A mapping suffix.}
 }
 \description{
 \code{copy_csv} copies the Mascot outputs of \code{.csv} files to a target

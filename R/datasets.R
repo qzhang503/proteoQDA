@@ -1,3 +1,20 @@
+# ========== MGFs ==========
+
+#' Proteome Discoverer (PD) global TMT
+#'
+#' A small subset of MGF entries from the \code{BI_1}. The MGF generator is PD.
+#'
+#' @format A MGF file at a length of 999708 entries.
+"pd_bi1_gl_partial"
+
+#' MSConvert IMAC TMT
+#'
+#' A small subset of MGF entries from the \code{BI_1}. The MGF generator is
+#' MSConvert.
+#'
+#' @format A MGF file at a length of 800889 lines.
+"msconv_bi1_imac_partial"
+
 
 # ========== Mascot ==========
 

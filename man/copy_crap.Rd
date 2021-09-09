@@ -4,7 +4,7 @@
 \alias{copy_crap}
 \title{Copy \code{crpa.fasta} to \code{db_path}}
 \usage{
-copy_crap(db_path = "~\\\\proteoQ\\\\dbs\\\\fasta\\\\crap")
+copy_crap(db_path = "~/proteoQ/dbs/fasta/crap")
 }
 \arguments{
 \item{db_path}{Character string; the local path for database(s).}

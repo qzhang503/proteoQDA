@@ -9,7 +9,7 @@ copy_txt(dat_dir, filelist)
 \arguments{
 \item{dat_dir}{A character string to the working directory.}
 
-\item{filelist}{A list of files}
+\item{filelist}{A list of files.}
 }
 \description{
 \code{copy_txt} copies the MaxQuant \code{msms.txt} files to a target

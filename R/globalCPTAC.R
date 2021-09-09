@@ -1,3 +1,72 @@
+#' Saves MGFs from MSConvert or Proteome Discoverer to \code{.rda}.
+#' 
+#' @param dat_dir A character string to the working directory.
+#' @param filelist A list of MGF files.
+#' @examples
+#' \dontest{
+#' foo_mgf(filelist = c("pd_bi1_gl_partial", "msconv_bi1_imac_partial"))
+#' }
+foo_mgf <- function(dat_dir = "~/proteoQ/examples", 
+                           filelist = c("pd_bi1_gl_partial")) {
+
+  purrr::walk(filelist, ~ {
+    assign(.x, readLines(file.path(dat_dir, paste0(.x, ".mgf"))))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
+  })
+}
+
+
+#' Copy MSConvert MGF files.
+#'
+#' @inheritParams copy_mgf
+#' @export
+copy_msconv_mgf <- function(dat_dir = "~/proteoQ/examples/mgfs") {
+  copy_mgf(dat_dir, filelist = c("msconv_bi1_imac_partial"), mapped = NULL)
+}
+
+
+#' Copy Proteome Discoverer MGF files.
+#'
+#' @inheritParams copy_mgf
+#' @export
+copy_pd_mgf <- function(dat_dir = "~/proteoQ/examples/mgfs") {
+  copy_mgf(dat_dir, filelist = c("pd_bi1_gl_partial"), mapped = NULL)
+}
+
+
+#' Copy \code{.mgf} files
+#'
+#' \code{copy_mgf} copies \code{.mgf} files to a target directory.
+#'
+#' @import purrr dplyr
+#' @importFrom magrittr %>% %T>%
+#' @param dat_dir A character string to the working directory.
+#' @param filelist A list of files
+#' @param mapped A mapping suffix.
+#' \@examples 
+#' \donttest{
+#' copy_mgf("~/proteoQ/examples/mgfs", "msconv_bi1_gl_partial)
+#' copy_mgf("~/proteoQ/examples/mgfs", "pd_bi1_imac_partial)
+#' }
+copy_mgf <- function(dat_dir = "~/proteoQ/examples/mgfs", filelist, 
+                     mapped = NULL) {
+  
+  dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
+  
+  data(list = filelist, package = "proteoQDA", envir = environment())
+  
+  for (i in seq_along(filelist)) {
+    file <- filelist[i]
+    fileConn <- file(file.path(dat_dir, paste0(file, mapped[i], ".mgf")))
+    writeLines(get(file), fileConn)
+    close(fileConn)
+  }
+}
+
+
+# ===============================================================================
+
+
 #' Mascot subset rda files
 #'
 foo_mascot_psmidx <- function () {
@@ -470,7 +539,8 @@ foo_msfragger_tmt_subset <- function () {
 #'   modify, as_function, flatten_dbl, flatten_lgl, flatten_int,
 #'   flatten_chr, splice, flatten, prepend, "%@%"))
 #' @param dat_dir A character string to the working directory.
-#' @param filelist A list of files
+#' @param filelist A list of files.
+#' @param mapped A mapping suffix.
 copy_csv <- function(dat_dir, filelist, mapped = NULL) {
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
@@ -844,7 +914,7 @@ copy_refseq_mm <- function(db_path = "~\\proteoQ\\dbs\\fasta\\refseq") {
 #'
 #' @inheritParams copy_fasta
 #' @export
-copy_crap <- function(db_path = "~\\proteoQ\\dbs\\fasta\\crap") {
+copy_crap <- function(db_path = "~/proteoQ/dbs/fasta/crap") {
   copy_fasta(db_path, "crap.rda")
 }
 
