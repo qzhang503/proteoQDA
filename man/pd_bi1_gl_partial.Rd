@@ -11,6 +11,8 @@ A MGF file at a length of 999708 entries.
 pd_bi1_gl_partial
 }
 \description{
-A small subset of MGF entries from the \code{BI_1}. The MGF generator is PD.
+A small subset of MGF entries from the \code{BI_1} for demonstration with
+\href{https://github.com/qzhang503/proteoM}{proteoM}. The MGF generator is
+PD.
 }
 \keyword{datasets}

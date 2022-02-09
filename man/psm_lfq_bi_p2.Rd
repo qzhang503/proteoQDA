@@ -3,14 +3,21 @@
 \docType{data}
 \name{psm_lfq_bi_p2}
 \alias{psm_lfq_bi_p2}
-\title{MSFragger IMAC data (LFQ)}
+\title{proteoM IMAC data (LFQ)}
 \format{
+A PSM table of 13189 rows and 46 columns
+
 A PSM table of 22423 rows and 32 columns
 }
 \usage{
 psm_lfq_bi_p2
+
+psm_lfq_bi_p2
 }
 \description{
+A \code{proteoM} LFQ PSM table from the \code{BI_2} dataset. The PSM entries
+were from offline fractions 5 and 10 and searched against UniProt.
+
 A \code{MSFragger} LFQ PSM table from the \code{BI_2} dataset. The PSM entries were
 from offline fractions 5 and 10 and searched against UniProt.
 }

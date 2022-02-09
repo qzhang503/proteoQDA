@@ -524,6 +524,63 @@ foo_msfragger_tmt_subset <- function () {
 }
 
 
+#' proteoM TMT rda files
+#'
+foo_proteom_tmt_subset <- function () {
+  dat_dir <- "~/proteoQ/examples"
+  
+  ## global
+  # filelist <- c("psmQ_tmt_bi_1", "psmQ_tmt_bi_2", "psmQ_tmt_jhu_1", 
+  #               "psmQ_tmt_jhu_2", "psmQ_tmt_pnnl_1", "psmQ_tmt_pnnl_2")
+  
+  ## phospho
+  filelist <- c("psmQ_lfq_bi_p1", "psmQ_lfq_bi_p2", "psmQ_lfq_jhu_p1", 
+                "psmQ_lfq_jhu_p2", "psmQ_lfq_pnnl_p1", "psmQ_lfq_pnnl_p2")
+  
+  # data thinning
+  set.seed(7331)
+  purrr::walk(filelist, ~ {
+    assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), sep = "\t",
+                        check.names = FALSE, header = TRUE, comment.char = "#"))
+    
+    df <- get(.x)
+    # df <- df[, grepl("^W.*\\.TMT[12]{1}$", names(df))]
+    df$is_complete <- complete.cases(df)
+    df$psm_idx <- 1:nrow(df)
+    
+    df_comp <- df[df$is_complete, ]
+    set.seed(123)
+    rows <- sample(nrow(df_comp), floor(nrow(df_comp)/10))
+    comp_idx <- unlist(unclass(df_comp[rows, "psm_idx"]))
+    
+    
+    df_incomp <- df[!df$is_complete, ]
+    set.seed(1234)
+    rows2 <- sample(nrow(df_incomp), floor(nrow(df_incomp)/10))
+    incomp_idx <- unlist(unclass(df_incomp[rows2, "psm_idx"]))
+    
+    df <- get(.x)
+    df <- df[c(comp_idx, incomp_idx), ]
+    df <- df[sample(nrow(df)), ]
+    
+    ## poor compression
+    # assign(.x, df)
+    # save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")))
+    # load(file.path(dat_dir, paste0(.x, ".rda")))
+    
+    write.table(df, file.path(dat_dir, paste0(.x, ".txt")), sep = "\t",
+                col.names = TRUE, row.names = FALSE)
+  })
+  
+  ## rda
+  purrr::walk(filelist, ~ {
+    assign(.x, read.csv(file.path(dat_dir, paste0(.x, ".txt")), check.names = FALSE,
+                        header = TRUE, sep = "\t", comment.char = "#"))
+    save(list = .x, file = file.path(dat_dir, paste0(.x, ".rda")), compress = "xz")
+  })
+}
+
+
 
 
 # ========== Mascot ==========
@@ -603,7 +660,8 @@ copy_mascot_plfq <- function(dat_dir = "~/proteoQ/examples") {
 #' \code{copy_txt} copies the MaxQuant \code{msms.txt} files to a target
 #' directory.
 #' @inheritParams copy_csv
-copy_txt <- function(dat_dir, filelist) {
+copy_txt <- function(dat_dir, filelist) 
+{
   dir.create(file.path(dat_dir), recursive = TRUE, showWarnings = FALSE)
 
   data(list = filelist, package = "proteoQDA", envir = environment())
@@ -702,6 +760,31 @@ copy_specmill_plfq <- function(dat_dir = "~/proteoQ/examples") {
 }
 
 
+
+
+
+# ========== proteoM ==========
+
+#' Copy proteoM global TMT \code{.txt}
+#'
+#' @inheritParams copy_csv
+#' @export
+copy_proteom_gtmt <- function(dat_dir = "~/proteoQ/examples") {
+  copy_txt(dat_dir, filelist = c("psmQ_tmt_bi_1", "psmQ_tmt_bi_2",
+                                 "psmQ_tmt_jhu_1", "psmQ_tmt_jhu_2",
+                                 "psmQ_tmt_pnnl_1", "psmQ_tmt_pnnl_2"))
+}
+
+
+#' Copy proteoM phospho LFQ \code{.txt}
+#'
+#' @inheritParams copy_csv
+#' @export
+copy_proteom_plfq <- function(dat_dir = "~/proteoQ/examples") {
+  copy_txt(dat_dir, filelist = c("psmQ_lfq_bi_p1", "psmQ_lfq_bi_p2",
+                                 "psmQ_lfq_jhu_p1", "psmQ_lfq_jhu_p2",
+                                 "psmQ_lfq_pnnl_p1", "psmQ_lfq_pnnl_p2"))
+}
 
 
 

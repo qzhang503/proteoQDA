@@ -11,7 +11,8 @@ A MGF file at a length of 800889 lines.
 msconv_bi1_imac_partial
 }
 \description{
-A small subset of MGF entries from the \code{BI_1}. The MGF generator is
+A small subset of MGF entries from the \code{BI_1} for demonstration with
+\href{https://github.com/qzhang503/proteoM}{proteoM}. The MGF generator is
 MSConvert.
 }
 \keyword{datasets}

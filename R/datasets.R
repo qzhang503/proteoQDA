@@ -2,14 +2,18 @@
 
 #' Proteome Discoverer (PD) global TMT
 #'
-#' A small subset of MGF entries from the \code{BI_1}. The MGF generator is PD.
+#' A small subset of MGF entries from the \code{BI_1} for demonstration with
+#' \href{https://github.com/qzhang503/proteoM}{proteoM}. The MGF generator is
+#' PD.
 #'
 #' @format A MGF file at a length of 999708 entries.
 "pd_bi1_gl_partial"
 
+
 #' MSConvert IMAC TMT
 #'
-#' A small subset of MGF entries from the \code{BI_1}. The MGF generator is
+#' A small subset of MGF entries from the \code{BI_1} for demonstration with
+#' \href{https://github.com/qzhang503/proteoM}{proteoM}. The MGF generator is
 #' MSConvert.
 #'
 #' @format A MGF file at a length of 800889 lines.
@@ -266,128 +270,116 @@
 
 
 
-# ========== Spectrum Mill ==========
+# ========== proteoM ==========
 
-#' SM global TMT
+#' proteoM global TMT
 #'
-#' A \code{Spectrum Mill} PSM table from the \code{BI_1} dataset. The PSM entries were
+#' A \code{proteoM} PSM table from the \code{BI_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
 #'
-#' @format A PSM table with header at a length of 31467
-"PSMexport_bi_1"
+#' @format A PSM table with header at a length of 72328
+"psmQ_tmt_bi_1"
 
 
-#' SM global TMT
+#' proteoM global TMT
 #'
-#' A \code{Spectrum Mill} PSM table from the \code{BI_2} dataset. The PSM entries were
+#' A \code{proteoM Mill} PSM table from the \code{BI_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
 #'
-#' @format A PSM table with header at a length of 30305
-"PSMexport_bi_2"
+#' @format A PSM table with header at a length of 68167
+"psmQ_tmt_bi_2"
 
 
-#' SM global TMT
+#' proteoM global TMT
 #'
-#' A \code{Spectrum Mill} PSM table from the \code{JHU_1} dataset. The PSM entries were
+#' A \code{proteoM} PSM table from the \code{JHU_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
 #'
-#' @format A PSM table with header at a length of 28480
-"PSMexport_jhu_1"
+#' @format A PSM table with header at a length of 59032
+"psmQ_tmt_jhu_1"
 
 
-#' SM global TMT
+#' proteoM global TMT
 #'
-#' A \code{Spectrum Mill} PSM table from the \code{JHU_2} dataset. The PSM entries were
+#' A \code{proteoM} PSM table from the \code{JHU_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
 #'
-#' @format A PSM table with header at a length of 28766
-"PSMexport_jhu_2"
+#' @format A PSM table with header at a length of 57057
+"psmQ_tmt_jhu_2"
 
 
-#' SM global TMT
+#' proteoM global TMT
 #'
-#' A \code{Spectrum Mill} PSM table from the \code{PNNL_1} dataset. The PSM entries were
+#' A \code{proteoM} PSM table from the \code{PNNL_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
 #'
-#' @format A PSM table with header at a length of 28606
-"PSMexport_pnnl_1"
+#' @format A PSM table with header at a length of 77035
+"psmQ_tmt_pnnl_1"
 
 
-#' SM global TMT
+#' proteoM global TMT
 #'
-#' A \code{Spectrum Mill} PSM table from the \code{PNNL_2} dataset. The PSM entries were
+#' A \code{proteoM} PSM table from the \code{PNNL_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
 #'
-#' @format A PSM table with header at a length of 28999
-"PSMexport_pnnl_2"
-
-#' SM phosphopeptide TMT
-#'
-#' A \code{Spectrum Mill} PSM table from the \code{BI_1} dataset. The PSM entries were
-#' sampled at 10% from the full list.
-#'
-#' @format A PSM table with header at a length of 9007
-"PSMexport_bi_p1"
-
-
-#' SM phosphopeptide TMT
-#'
-#' A \code{Spectrum Mill} PSM table from the \code{BI_2} dataset. The PSM entries were
-#' sampled at 10% from the full list.
-#'
-#' @format A PSM table with header at a length of 8305
-"PSMexport_bi_p2"
-
-
-#' SM phosphopeptide TMT
-#'
-#' A \code{Spectrum Mill} PSM table from the \code{JHU_1} dataset. The PSM entries were
-#' sampled at 10% from the full list.
-#'
-#' @format A PSM table with header at a length of 6633
-"PSMexport_jhu_p1"
-
-
-#' SM phosphopeptide TMT
-#'
-#' A \code{Spectrum Mill} PSM table from the \code{JHU_2} dataset. The PSM entries were
-#' sampled at 10% from the full list.
-#'
-#' @format A PSM table with header at a length of 7385
-"PSMexport_jhu_p2"
-
-
-#' SM phosphopeptide TMT
-#'
-#' A \code{Spectrum Mill} PSM table from the \code{PNNL_1} dataset. The PSM entries were
-#' sampled at 10% from the full list.
-#'
-#' @format A PSM table with header at a length of 8045
-"PSMexport_pnnl_p1"
-
-
-#' SM phosphopeptide TMT
-#'
-#' A \code{Spectrum Mill} PSM table from the \code{PNNL_2} dataset. The PSM entries were
-#' sampled at 10% from the full list.
-#'
-#' @format A PSM table with header at a length of 6637
-"PSMexport_pnnl_p2"
+#' @format A PSM table with header at a length of 77675
+"psmQ_tmt_pnnl_2"
 
 
 # (2) LFQ
 
-#' Spectrum Mill IMAC data (LFQ)
+#' proteoM IMAC data (LFQ)
 #'
-#' A \code{Spectrum Mill} LFQ PSM table from the 5th and 10th fractions of
-#' \code{BI_1, BI_2, JHU_1, JHU_2, PNNL_1, PNN_2} IMAC. The data were searched
-#' against a "UniProt Hu and Mm" database.
+#' A \code{proteoM} LFQ PSM table from the \code{BI_1} dataset. The PSM entries
+#' were from offline fractions 5 and 10 and searched against UniProt.
 #'
-#' @format A PSM table at a length of 77104
-"PSMexport_lfq_p"
+#' @format A PSM table of 12972 rows and 46 columns
+"psmQ_lfq_bi_p1"
 
 
+#' proteoM IMAC data (LFQ)
+#'
+#' A \code{proteoM} LFQ PSM table from the \code{BI_2} dataset. The PSM entries
+#' were from offline fractions 5 and 10 and searched against UniProt.
+#'
+#' @format A PSM table of 13189 rows and 46 columns
+"psm_lfq_bi_p2"
 
+
+#' proteoM IMAC data (LFQ)
+#'
+#' A \code{proteoM} LFQ PSM table from the \code{JHU_1} dataset. The PSM entries
+#' were from offline fractions 5 and 10 and searched against UniProt.
+#'
+#' @format A PSM table of 12715 rows and 46 columns
+"psmQ_lfq_jhu_p1"
+
+
+#' proteoM IMAC data (LFQ)
+#'
+#' A \code{proteoM} LFQ PSM table from the \code{JHU_2} dataset. The PSM entries
+#' were from offline fractions 5 and 10 and searched against UniProt.
+#'
+#' @format A PSM table of 13298 rows and 46 columns
+"psmQ_lfq_jhu_p2"
+
+
+#' proteoM IMAC data (LFQ)
+#'
+#' A \code{proteoM} LFQ PSM table from the \code{PNNL_1} dataset. The PSM entries
+#' were from offline fractions 5 and 10 and searched against UniProt.
+#'
+#' @format A PSM table of 17057 rows and 46 columns
+"psmQ_lfq_pnnl_p1"
+
+
+#' proteoM IMAC data (LFQ)
+#'
+#' A \code{proteoM} LFQ PSM table from the \code{PNNL_2} dataset. The PSM entries
+#' were from offline fractions 5 and 10 and searched against UniProt.
+#'
+#' @format A PSM table of 14941 rows and 46 columns
+"psmQ_lfq_pnnl_p2"
 
 
 
