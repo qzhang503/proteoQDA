@@ -277,7 +277,7 @@
 #' A \code{proteoM} PSM table from the \code{BI_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
 #'
-#' @format A PSM table with header at a length of 72328
+#' @format A PSM table with header at a length of 75856
 "psmQ_tmt_bi_1"
 
 
@@ -286,7 +286,7 @@
 #' A \code{proteoM Mill} PSM table from the \code{BI_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
 #'
-#' @format A PSM table with header at a length of 68167
+#' @format A PSM table with header at a length of 71859
 "psmQ_tmt_bi_2"
 
 
@@ -295,7 +295,7 @@
 #' A \code{proteoM} PSM table from the \code{JHU_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
 #'
-#' @format A PSM table with header at a length of 59032
+#' @format A PSM table with header at a length of 63031
 "psmQ_tmt_jhu_1"
 
 
@@ -304,7 +304,7 @@
 #' A \code{proteoM} PSM table from the \code{JHU_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
 #'
-#' @format A PSM table with header at a length of 57057
+#' @format A PSM table with header at a length of 59854
 "psmQ_tmt_jhu_2"
 
 
@@ -313,7 +313,7 @@
 #' A \code{proteoM} PSM table from the \code{PNNL_1} dataset. The PSM entries were
 #' sampled at 10% from the full list.
 #'
-#' @format A PSM table with header at a length of 77035
+#' @format A PSM table with header at a length of 82347
 "psmQ_tmt_pnnl_1"
 
 
@@ -322,7 +322,7 @@
 #' A \code{proteoM} PSM table from the \code{PNNL_2} dataset. The PSM entries were
 #' sampled at 10% from the full list.
 #'
-#' @format A PSM table with header at a length of 77675
+#' @format A PSM table with header at a length of 82482
 "psmQ_tmt_pnnl_2"
 
 
@@ -381,6 +381,19 @@
 #' @format A PSM table of 14941 rows and 46 columns
 "psmQ_lfq_pnnl_p2"
 
+
+# (2) LFQ
+
+#' proteoM IMAC data (LFQ)
+#'
+#' A \code{proteoM} LFQ PSM table from the 5th and 10th fractions of
+#' \code{BI_1, BI_2, JHU_1, JHU_2, PNNL_1, PNN_2} IMAC. The data were searched
+#' against a "UniProt Hu and Mm" database. 
+#' 
+#' Redundancy at neutral losses and variable modifications kept
+#'
+#' @format A PSM table at a length of 308402
+"psmQ_lfq_p"
 
 
 

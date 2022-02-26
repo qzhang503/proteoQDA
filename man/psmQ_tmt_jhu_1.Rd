@@ -5,7 +5,7 @@
 \alias{psmQ_tmt_jhu_1}
 \title{proteoM global TMT}
 \format{
-A PSM table with header at a length of 59032
+A PSM table with header at a length of 63031
 }
 \usage{
 psmQ_tmt_jhu_1
