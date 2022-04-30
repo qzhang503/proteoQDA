@@ -1,15 +1,19 @@
 Package: proteoQDA
 Title: Data employed in the vignette of the proteoQ package 
-Version: 0.0.1.0
+Version: 0.0.2.0
 Authors@R: 
     person(given = "Qiang",
            family = "Zhang",
            role = c("aut", "cre"),
-           email = "qzhang503@gmail.com")
+           email = "qzhang503@gmail.com", 
+           comment = c(ORCID = "0000-0001-7046-4378"))
+Maintainer: The package maintainer <qzhang503@gmail.com>
 Description: This package stores the data employed in the vignette of the proteoQ package.
+Depends: R (>= 4.1)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+VignetteBuilder: knitr
 Imports: 
     dplyr,
     magrittr,
