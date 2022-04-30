@@ -3,7 +3,7 @@
 #' @param dat_dir A character string to the working directory.
 #' @param filelist A list of MGF files.
 #' @examples
-#' \dontest{
+#' \donttest{
 #' foo_mgf(filelist = c("pd_bi1_gl_partial", "msconv_bi1_imac_partial"))
 #' }
 foo_mgf <- function(dat_dir = "~/proteoQ/examples", 
@@ -533,10 +533,6 @@ foo_proteom_tmt_subset <- function () {
   filelist <- c("psmQ_tmt_bi_1", "psmQ_tmt_bi_2", "psmQ_tmt_jhu_1", 
                 "psmQ_tmt_jhu_2", "psmQ_tmt_pnnl_1", "psmQ_tmt_pnnl_2")
   
-  ## phospho
-  filelist <- c("psmQ_lfq_bi_p1", "psmQ_lfq_bi_p2", "psmQ_lfq_jhu_p1", 
-                "psmQ_lfq_jhu_p2", "psmQ_lfq_pnnl_p1", "psmQ_lfq_pnnl_p2")
-
   # data thinning
   set.seed(7331)
   purrr::walk(filelist, ~ {
@@ -774,17 +770,6 @@ copy_proteom_gtmt <- function(dat_dir = "~/proteoQ/examples") {
   copy_txt(dat_dir, filelist = c("psmQ_tmt_bi_1", "psmQ_tmt_bi_2",
                                  "psmQ_tmt_jhu_1", "psmQ_tmt_jhu_2",
                                  "psmQ_tmt_pnnl_1", "psmQ_tmt_pnnl_2"))
-}
-
-
-#' Copy proteoM phospho LFQ \code{.txt}
-#'
-#' @inheritParams copy_csv
-#' @export
-copy_proteom_plfq_2 <- function(dat_dir = "~/proteoQ/examples") {
-  copy_txt(dat_dir, filelist = c("psmQ_lfq_bi_p1", "psmQ_lfq_bi_p2",
-                                 "psmQ_lfq_jhu_p1", "psmQ_lfq_jhu_p2",
-                                 "psmQ_lfq_pnnl_p1", "psmQ_lfq_pnnl_p2"))
 }
 
 

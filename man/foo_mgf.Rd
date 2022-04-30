@@ -15,7 +15,7 @@ foo_mgf(dat_dir = "~/proteoQ/examples", filelist = c("pd_bi1_gl_partial"))
 Saves MGFs from MSConvert or Proteome Discoverer to \code{.rda}.
 }
 \examples{
-\dontest{
+\donttest{
 foo_mgf(filelist = c("pd_bi1_gl_partial", "msconv_bi1_imac_partial"))
 }
 }

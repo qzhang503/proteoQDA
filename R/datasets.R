@@ -330,62 +330,6 @@
 
 #' proteoM IMAC data (LFQ)
 #'
-#' A \code{proteoM} LFQ PSM table from the \code{BI_1} dataset. The PSM entries
-#' were from offline fractions 5 and 10 and searched against UniProt.
-#'
-#' @format A PSM table of 12972 rows and 46 columns
-"psmQ_lfq_bi_p1"
-
-
-#' proteoM IMAC data (LFQ)
-#'
-#' A \code{proteoM} LFQ PSM table from the \code{BI_2} dataset. The PSM entries
-#' were from offline fractions 5 and 10 and searched against UniProt.
-#'
-#' @format A PSM table of 13189 rows and 46 columns
-"psm_lfq_bi_p2"
-
-
-#' proteoM IMAC data (LFQ)
-#'
-#' A \code{proteoM} LFQ PSM table from the \code{JHU_1} dataset. The PSM entries
-#' were from offline fractions 5 and 10 and searched against UniProt.
-#'
-#' @format A PSM table of 12715 rows and 46 columns
-"psmQ_lfq_jhu_p1"
-
-
-#' proteoM IMAC data (LFQ)
-#'
-#' A \code{proteoM} LFQ PSM table from the \code{JHU_2} dataset. The PSM entries
-#' were from offline fractions 5 and 10 and searched against UniProt.
-#'
-#' @format A PSM table of 13298 rows and 46 columns
-"psmQ_lfq_jhu_p2"
-
-
-#' proteoM IMAC data (LFQ)
-#'
-#' A \code{proteoM} LFQ PSM table from the \code{PNNL_1} dataset. The PSM entries
-#' were from offline fractions 5 and 10 and searched against UniProt.
-#'
-#' @format A PSM table of 17057 rows and 46 columns
-"psmQ_lfq_pnnl_p1"
-
-
-#' proteoM IMAC data (LFQ)
-#'
-#' A \code{proteoM} LFQ PSM table from the \code{PNNL_2} dataset. The PSM entries
-#' were from offline fractions 5 and 10 and searched against UniProt.
-#'
-#' @format A PSM table of 14941 rows and 46 columns
-"psmQ_lfq_pnnl_p2"
-
-
-# (2) LFQ
-
-#' proteoM IMAC data (LFQ)
-#'
 #' A \code{proteoM} LFQ PSM table from the 5th and 10th fractions of
 #' \code{BI_1, BI_2, JHU_1, JHU_2, PNNL_1, PNN_2} IMAC. The data were searched
 #' against a "UniProt Hu and Mm" database. 
